@@ -1,0 +1,54 @@
+import { SyntheticEvent } from 'react';
+import { useUsers } from '../../hooks/use.users';
+import { UserLogin } from '../../models/user.model';
+import style from './Login.module.scss';
+import Swal from 'sweetalert2';
+
+export function Login() {
+  const { login } = useUsers();
+
+  const handleSubmit = (event: SyntheticEvent) => {
+    event.preventDefault();
+    const element = event.target as HTMLFormElement;
+    const loggedUser = {
+      email: (element.elements.namedItem('email') as HTMLInputElement).value,
+      password: (element.elements.namedItem('password') as HTMLInputElement)
+        .value,
+    } as UserLogin;
+    if (loggedUser.email === '' || loggedUser.password)
+      Swal.fire({
+        width: '20em',
+        icon: 'error',
+        title: 'LOGIN ERROR',
+        text: 'Try again please',
+        background:
+          'linear-gradient(to right, rgba(20, 20, 20), rgba(0, 0, 0))',
+        color: 'white',
+        iconColor: 'red',
+        showConfirmButton: false,
+        padding: '4em 0',
+        timer: 2500,
+      });
+    login(loggedUser);
+    element.reset();
+  };
+
+  return (
+    <>
+      <header title="Be Beers"></header>
+      <div className={style.form}>
+        <form onSubmit={handleSubmit} aria-label="form">
+          <label htmlFor="email">Email: </label>
+          <input type="email" id="email" name="email" role="textbox" />
+          <label htmlFor="passward">Password: </label>
+          <input
+            type="text"
+            id="password"
+            data-testid="password"
+            name="password"
+          />
+        </form>
+      </div>
+    </>
+  );
+}

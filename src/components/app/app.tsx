@@ -1,3 +1,4 @@
+import { Login } from '../login/login';
 import { Register } from '../register/register';
 
 export function App() {
@@ -10,6 +11,7 @@ export function App() {
   // ];
   return (
     <>
+      <Login></Login>
       <Register></Register>
     </>
   );
