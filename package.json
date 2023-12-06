@@ -1,35 +1,40 @@
 {
-  "name": "week7-challenger",
-  "author": "alfredo-lozano",
-  "private": true,
+  "name": "alfredo",
   "version": "1.0.0",
+  "description": "Final Proyect",
   "type": "module",
   "main": "index.js",
-  "license": "ISC",
   "scripts": {
-    "build": "tsc -w",
     "server": "json-server --watch ./server/db.json",
     "dev": "vite",
-    "build:render": "tsc",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "jest --watchAll --coverage",
+    "build:ts": "tsc -w",
+    "test": "jest",
     "test:pro": "jest --watchAll --coverage --watchAll=false --passWithNoTests",
-    "test:coverage": "jest --watchAll --coverage",
+    "test:w": "jest --watchAll --coverage --collectCoverageFrom=src/**/*.{ts,tsx}",
+    "test:f": "jest --watchAll --coverage",
     "prepare": "husky install",
     "sass": "sass scss:css -w --no-source-map",
-    "start": "tsc -w node dist/index.js",
-    "start:dev": "cross-env PORT=1969 DEBUG=W7E* nodemon dist/index.js"
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+  },
+  "keywords": [],
+  "author": "alfredo lozano",
+  "license": "ISC",
+  "prettier": {
+    "singleQuote": true
   },
   "devDependencies": {
     "@testing-library/dom": "^9.3.3",
     "@testing-library/jest-dom": "^6.1.4",
-    "@testing-library/react": "^14.0.0",
+    "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^14.5.1",
-    "@types/jest": "^29.5.6",
-    "@types/node": "^20.8.7",
+    "@types/jest": "^29.5.7",
+    "@types/node": "^20.8.10",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@types/react-redux": "^7.1.30",
+    "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^6.8.0",
     "@typescript-eslint/parser": "^6.8.0",
     "@vitejs/plugin-react": "^4.0.3",
@@ -49,10 +54,11 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
-    "json-server": "^0.17.4",
+    "@types/redux": "^3.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.3",
-    "react-router-dom": "^6.18.0"
+    "react-router-dom": "^6.18.0",
+    "redux": "^4.2.1"
   }
 }
