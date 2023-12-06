@@ -1,5 +1,4 @@
 import { User, UserLogin } from '../models/user.model';
-import '@testing-library/jest-dom';
 import { useUsers } from './use.users';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
@@ -30,6 +29,11 @@ describe('Given useUsers Hook', () => {
   let elements: HTMLElement[];
 
   beforeEach(() => {
+    const jsonMock = jest.fn().mockResolvedValue([]);
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      ok: true,
+      json: jsonMock,
+    });
     render(<TestComponent></TestComponent>);
     elements = screen.getAllByRole('button');
   });
