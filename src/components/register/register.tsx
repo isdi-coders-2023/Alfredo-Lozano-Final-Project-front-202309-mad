@@ -1,10 +1,11 @@
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { useUsers } from '../../hooks/use.users';
 import { User } from '../../models/user.model';
 import style from './Register.module.scss';
 import Swal from 'sweetalert2';
 
 export function Register() {
+  const [hasRegister, setHasRegister] = useState(false);
   const { register } = useUsers();
 
   const handleSubmit = (event: SyntheticEvent) => {
@@ -30,7 +31,7 @@ export function Register() {
       data.name === '' ||
       data.age! <= 18 ||
       data.surname === ''
-    )
+    ) {
       Swal.fire({
         width: '20em',
         icon: 'error',
@@ -44,8 +45,9 @@ export function Register() {
         padding: '4em 0',
         timer: 2500,
       });
-    else {
+    } else {
       register(data);
+      setHasRegister(true);
       formElement.reset();
     }
   };
@@ -53,32 +55,43 @@ export function Register() {
   return (
     <>
       <header title="Be Beers"></header>
-      <div className={style.form}>
-        <form onSubmit={handleSubmit} aria-label="form">
-          <div className={style.inputs}>
-            <label htmlFor="name">Name: </label>
-            <input type="text" id="name" name="name" />
-            <label htmlFor="Surname">Surname: </label>
-            <input type="text" id="Surname" name="Surname" />
-            <label htmlFor="age">age: </label>
-            <input type="text" id="age" name="age" />
-            <label htmlFor="userName">User name: </label>
-            <input type="text" id="User name" name="User name" />
-            <label htmlFor="email">Email: </label>
-            <input type="email" id="email" name="email" role="textbox" />
-            <label htmlFor="passward">Password: </label>
-            <input
-              type="text"
-              id="password"
-              data-testid="password"
-              name="password"
-            />
-          </div>
-          <div className={style.submit}>
-            <button type="submit">Sign Up</button>
-          </div>
-        </form>
-      </div>
+      <h2>Register</h2>
+      {!hasRegister && (
+        <div className={style.form}>
+          <form onSubmit={handleSubmit} aria-label="form">
+            <div className={style.inputs}>
+              <label htmlFor="name">Name: </label>
+              <input type="text" id="name" name="name" />
+              <label htmlFor="surname">Surname: </label>
+              <input type="text" id="surname" name="surname" />
+              <label htmlFor="age">age: </label>
+              <input type="number" id="age" name="age" />
+              <label htmlFor="userName">User name: </label>
+              <input type="text" id="user" name="user" />
+              <label htmlFor="email">Email: </label>
+              <input type="email" id="email" name="email" role="textbox" />
+              <label htmlFor="passward">Password: </label>
+              <input
+                type="text"
+                id="password"
+                data-testid="password"
+                name="password"
+              />
+            </div>
+            <div className={style.submit}>
+              <button type="submit">Sign Up</button>
+            </div>
+          </form>
+        </div>
+      )}
+      {hasRegister && (
+        <div>
+          <p>Registro correcto</p>
+          {/* <Link to={'/home/'}>
+            <button type="button">Continuar</button>
+          </Link> */}
+        </div>
+      )}
     </>
   );
 }

@@ -1,10 +1,11 @@
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { useUsers } from '../../hooks/use.users';
 import { UserLogin } from '../../models/user.model';
 import style from './Login.module.scss';
 import Swal from 'sweetalert2';
 
 export function Login() {
+  const [hasLogin, setHasLogin] = useState(false);
   const { login } = useUsers();
 
   const handleSubmit = (event: SyntheticEvent) => {
@@ -15,7 +16,7 @@ export function Login() {
       password: (element.elements.namedItem('password') as HTMLInputElement)
         .value,
     } as UserLogin;
-    if (loggedUser.email === '' || loggedUser.password)
+    if (loggedUser.email === '' || loggedUser.password === '') {
       Swal.fire({
         width: '20em',
         icon: 'error',
@@ -29,26 +30,43 @@ export function Login() {
         padding: '4em 0',
         timer: 2500,
       });
-    login(loggedUser);
-    element.reset();
+    } else {
+      login(loggedUser);
+      setHasLogin(true);
+      element.reset();
+    }
   };
 
   return (
     <>
       <header title="Be Beers"></header>
-      <div className={style.form}>
-        <form onSubmit={handleSubmit} aria-label="form">
-          <label htmlFor="email">Email: </label>
-          <input type="email" id="email" name="email" role="textbox" />
-          <label htmlFor="passward">Password: </label>
-          <input
-            type="text"
-            id="password"
-            data-testid="password"
-            name="password"
-          />
-        </form>
-      </div>
+      <h2>Login</h2>
+      {!hasLogin && (
+        <div className={style.form}>
+          <form onSubmit={handleSubmit} aria-label="form">
+            <label htmlFor="email">Email: </label>
+            <input type="email" id="email" name="email" role="textbox" />
+            <label htmlFor="password">Password: </label>
+            <input
+              type="password"
+              id="password"
+              data-testid="password"
+              name="password"
+            />
+            <div className={style.submit}>
+              <button type="submit">Sign In</button>
+            </div>
+          </form>
+        </div>
+      )}
+      {hasLogin && (
+        <div>
+          <p>Login correcto</p>
+          {/* <Link to={'/home/'}>
+            <button type="button">Continuar</button>
+          </Link> */}
+        </div>
+      )}
     </>
   );
 }
