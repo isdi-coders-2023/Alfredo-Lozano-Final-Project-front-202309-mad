@@ -4,7 +4,7 @@ import { User } from '../../models/user.model';
 import style from './Register.module.scss';
 import Swal from 'sweetalert2';
 
-export function Register() {
+export default function Register() {
   const [hasRegister, setHasRegister] = useState(false);
   const { register } = useUsers();
 
@@ -57,32 +57,35 @@ export function Register() {
       <header title="Be Beers"></header>
       <h2>Register</h2>
       {!hasRegister && (
-        <div className={style.form}>
-          <form onSubmit={handleSubmit} aria-label="form">
-            <div className={style.inputs}>
-              <label htmlFor="name">Name: </label>
-              <input type="text" id="name" name="name" />
-              <label htmlFor="surname">Surname: </label>
-              <input type="text" id="surname" name="surname" />
-              <label htmlFor="age">age: </label>
-              <input type="number" id="age" name="age" />
-              <label htmlFor="userName">User name: </label>
-              <input type="text" id="user" name="user" />
-              <label htmlFor="email">Email: </label>
-              <input type="email" id="email" name="email" role="textbox" />
-              <label htmlFor="passward">Password: </label>
-              <input
-                type="text"
-                id="password"
-                data-testid="password"
-                name="password"
-              />
-            </div>
-            <div className={style.submit}>
-              <button type="submit">Sign Up</button>
-            </div>
-          </form>
-        </div>
+        <form onSubmit={handleSubmit} aria-label="form">
+          <div className={style.inputs}>
+            <label htmlFor="name">Name: </label>
+            <input type="text" id="name" name="name" />
+          </div>
+          <div className={style.inputs}>
+            <label htmlFor="surname">Surname: </label>
+            <input type="text" id="surname" name="surname" />
+          </div>
+          <div className={style.inputs}>
+            <label htmlFor="age">age: </label>
+            <input type="number" id="age" name="age" />
+          </div>
+          <div className={style.inputs}>
+            <label htmlFor="userName">User name: </label>
+            <input type="text" id="user" name="user" />
+          </div>
+          <div className={style.inputs}>
+            <label htmlFor="email">Email: </label>
+            <input type="email" id="email" name="email" role="textbox" />
+          </div>
+          <div className={style.inputs}>
+            <label htmlFor="password">Password: </label>
+            <input type="text" id="password" name="password" />
+          </div>
+          <div className={style.submit}>
+            <button type="submit">Sign Up</button>
+          </div>
+        </form>
       )}
       {hasRegister && (
         <div>

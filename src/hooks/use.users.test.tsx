@@ -12,6 +12,7 @@ jest.mock('react-redux', () => ({
 
 const mockLoginUser = {} as UserLogin;
 const mockNewUser = {} as unknown as Partial<User>;
+
 describe('Given useUsers Hook', () => {
   const TestComponent = () => {
     const { logoutUser, login, register, makeLogOut } = useUsers();
