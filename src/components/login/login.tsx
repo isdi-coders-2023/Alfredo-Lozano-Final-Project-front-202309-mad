@@ -40,7 +40,7 @@ export default function Login() {
 
   return (
     <>
-      <header title="Be Beers"></header>
+      <section className="form-section"></section>
       <h2>Login</h2>
       {!hasLogin && (
         <form onSubmit={handleSubmit} aria-label="form">

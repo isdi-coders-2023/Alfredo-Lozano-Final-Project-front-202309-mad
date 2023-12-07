@@ -1,0 +1,20 @@
+header {
+  margin: auto;
+  background-color: #f3e9e9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .header {
+    justify-content: center;
+    .smallbeer {
+      order: 1;
+      padding: 1rem;
+    }
+    .smallogo {
+      margin: 0.5rem;
+      order: 2;
+      height: 3rem;
+    }
+  }
+}

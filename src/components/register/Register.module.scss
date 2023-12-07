@@ -1,8 +1,16 @@
-.form {
+form {
+  display: flex;
+  flex-direction: column;
   border: 1px solid black;
-  border-radius: 2rem;
-  margin: 1rem auto;
-  justify-content: space-between;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 70vh;
+  width: 50%;
+  font-family: 'Karla';
+  margin: 0;
+  margin-top: 2rem;
 }
 
 .inputs {
