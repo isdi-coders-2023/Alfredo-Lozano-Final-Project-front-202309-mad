@@ -1,7 +1,7 @@
 import { SyntheticEvent, useState } from 'react';
 import { useUsers } from '../../hooks/use.users';
 import { UserLogin } from '../../models/user.model';
-import style from './Login.module.scss';
+import './login.scss';
 import Swal from 'sweetalert2';
 
 export default function Login() {
@@ -40,21 +40,21 @@ export default function Login() {
 
   return (
     <>
-      <section className={style.form}>
+      <section className={'form'}>
         <h2>Login</h2>
         {!hasLogin && (
           <form onSubmit={handleSubmit} aria-label="form">
-            <div className={style.email}>
+            <div className={'email'}>
               <label htmlFor="email" className="email">
                 Email:{' '}
               </label>
               <input type="email" id="email" name="email" role="textbox" />
             </div>
-            <div className={style.password}>
+            <div className={'password'}>
               <label htmlFor="password">Password: </label>
               <input type="text" id="password" name="password" />
             </div>
-            <div className={style.submit}>
+            <div className={'submit'}>
               <button type="submit">Sign In</button>
             </div>
           </form>

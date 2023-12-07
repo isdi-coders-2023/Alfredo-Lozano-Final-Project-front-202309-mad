@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { RootState } from '../../store/store';
 import { useUsers } from '../../hooks/use.users';
-import './User.button.module.scss';
+import style from './User.button.module.scss';
 
 export function UserButtons() {
   const { loggedUser } = useSelector((state: RootState) => state.usersState);
@@ -11,32 +11,32 @@ export function UserButtons() {
 
   return (
     <>
-      <section className="log-in-register-container">
+      <section className={style.container}>
         {!loggedUser && location.pathname === '/' && (
           <>
             <Link to="/register">
-              <button className="register">Register</button>
+              <button className={style.container}>Register</button>
             </Link>
           </>
         )}
         {!loggedUser && location.pathname === '/home' && (
           <>
             <Link to="/register">
-              <button className="register">Register</button>
+              <button className={style.container}>Register</button>
             </Link>
           </>
         )}
         {!loggedUser && location.pathname === '/register' && (
           <>
             <Link to="/home">
-              <button className="register">Back</button>
+              <button className={style.container}>Back</button>
             </Link>
           </>
         )}
         {loggedUser && (
           <>
-            <Link to="/">
-              <button className="register" onClick={logoutUser}>
+            <Link to="/" className={style.container}>
+              <button className={style.container} onClick={logoutUser}>
                 Logout
               </button>
               <div className="user-info">

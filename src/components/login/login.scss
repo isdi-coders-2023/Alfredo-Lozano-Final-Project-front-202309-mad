@@ -10,6 +10,10 @@
   padding: 2rem;
   margin: 20px;
 
+  h2 {
+    margin-right: 50%;
+    font-size: 20px;
+  }
   .email {
     margin: 20px;
     flex-wrap: wrap;
@@ -24,7 +28,7 @@
     margin: 20px;
     flex-wrap: wrap;
     gap: 1rem;
-    input#email {
+    input#password {
       border-radius: 1rem;
       width: 20rem;
       padding: 0.3rem;
