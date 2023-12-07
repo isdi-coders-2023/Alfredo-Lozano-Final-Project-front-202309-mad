@@ -3,6 +3,7 @@ import { ApiRepoUsers } from '../../services/api.repo.users';
 import { appStore } from '../../store/store';
 import { logout } from './user.slice';
 import { loginThunk, registerThunk } from './user.thunk';
+import { Storage } from '../../services/storage';
 
 const loginUser = { email: 'pepe', password: '123' };
 const newUser = {} as unknown as Partial<User>;
@@ -11,7 +12,10 @@ describe('Given the users slice reducer', () => {
   describe('When it is instantiated correctly', () => {
     const repo: ApiRepoUsers = {
       registerUser: jest.fn(),
-      login: jest.fn().mockResolvedValueOnce(loginUser),
+      login: jest.fn().mockReturnValue({
+        loginUser,
+        token: '',
+      }),
     } as unknown as ApiRepoUsers;
 
     test('Then it should dispatch the registerUser', () => {
@@ -20,7 +24,15 @@ describe('Given the users slice reducer', () => {
     });
 
     test('Then it should dispatch the loginUserAsync', () => {
-      appStore.dispatch(loginThunk({ loginUser, repo }));
+      appStore.dispatch(
+        loginThunk({
+          loginUser,
+          repo,
+          userStore: { set: jest.fn() } as unknown as Storage<{
+            token: string;
+          }>,
+        })
+      );
       expect(repo.login).toHaveBeenCalled();
     });
     test('should update state when user logs out', () => {});
@@ -38,7 +50,15 @@ describe('Given the users slice reducer', () => {
     } as unknown as ApiRepoUsers;
 
     test('should set loggingState to error when user fails to log in', async () => {
-      await appStore.dispatch(loginThunk({ loginUser, repo }));
+      await appStore.dispatch(
+        loginThunk({
+          loginUser,
+          repo,
+          userStore: { set: jest.fn() } as unknown as Storage<{
+            token: string;
+          }>,
+        })
+      );
       const state = appStore.getState().usersState;
       expect(state.loggingState).toBe('error');
     });

@@ -5,6 +5,7 @@ import { ApiRepoUsers } from '../services/api.repo.users';
 import { User, UserLogin } from '../models/user.model';
 import { Storage } from '../services/storage';
 import * as ac from '../slices/user.slices/user.slice';
+import { loginThunk } from '../slices/user.slices/user.thunk';
 
 export function useUsers() {
   const userStore = new Storage<{ token: string }>('user');
@@ -16,7 +17,7 @@ export function useUsers() {
   };
 
   const login = (loginUser: UserLogin) => {
-    repo.login(loginUser);
+    dispatch(loginThunk({ loginUser, repo, userStore }));
   };
 
   const makeLogOut = () => {

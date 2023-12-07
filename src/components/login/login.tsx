@@ -4,7 +4,7 @@ import { UserLogin } from '../../models/user.model';
 import style from './Login.module.scss';
 import Swal from 'sweetalert2';
 
-export function Login() {
+export default function Login() {
   const [hasLogin, setHasLogin] = useState(false);
   const { login } = useUsers();
 
@@ -31,6 +31,7 @@ export function Login() {
         timer: 2500,
       });
     } else {
+      console.log(loggedUser);
       login(loggedUser);
       setHasLogin(true);
       element.reset();
@@ -42,27 +43,24 @@ export function Login() {
       <header title="Be Beers"></header>
       <h2>Login</h2>
       {!hasLogin && (
-        <div className={style.form}>
-          <form onSubmit={handleSubmit} aria-label="form">
+        <form onSubmit={handleSubmit} aria-label="form">
+          <div className={style.inputs}>
             <label htmlFor="email">Email: </label>
             <input type="email" id="email" name="email" role="textbox" />
+          </div>
+          <div className={style.inputs}>
             <label htmlFor="password">Password: </label>
-            <input
-              type="password"
-              id="password"
-              data-testid="password"
-              name="password"
-            />
-            <div className={style.submit}>
-              <button type="submit">Sign In</button>
-            </div>
-          </form>
-        </div>
+            <input type="text" id="password" name="password" />
+          </div>
+          <div className={style.submit}>
+            <button type="submit">Sign In</button>
+          </div>
+        </form>
       )}
       {hasLogin && (
         <div>
           <p>Login correcto</p>
-          {/* <Link to={'/home/'}>
+          {/* <Link to={'/register'}>
             <button type="button">Continuar</button>
           </Link> */}
         </div>

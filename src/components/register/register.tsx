@@ -4,7 +4,7 @@ import { User } from '../../models/user.model';
 import style from './Register.module.scss';
 import Swal from 'sweetalert2';
 
-export function Register() {
+export default function Register() {
   const [hasRegister, setHasRegister] = useState(false);
   const { register } = useUsers();
 
@@ -79,13 +79,8 @@ export function Register() {
             <input type="email" id="email" name="email" role="textbox" />
           </div>
           <div className={style.inputs}>
-            <label htmlFor="passward">Password: </label>
-            <input
-              type="text"
-              id="password"
-              data-testid="password"
-              name="password"
-            />
+            <label htmlFor="password">Password: </label>
+            <input type="text" id="password" name="password" />
           </div>
           <div className={style.submit}>
             <button type="submit">Sign Up</button>

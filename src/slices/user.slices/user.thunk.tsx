@@ -2,15 +2,18 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { LoginResponse } from '../../types/login.user';
 import { User, UserLogin } from '../../models/user.model';
 import { ApiRepoUsers } from '../../services/api.repo.users';
+import { Storage } from '../../services/storage';
 
 export const loginThunk = createAsyncThunk<
   LoginResponse,
   {
     loginUser: UserLogin;
     repo: ApiRepoUsers;
+    userStore: Storage<{ token: string }>;
   }
->('login', async ({ loginUser, repo }) => {
+>('login', async ({ loginUser, repo, userStore }) => {
   const result = await repo.login(loginUser);
+  userStore.set({ token: result.token });
   return result;
 });
 
