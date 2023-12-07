@@ -1,0 +1,23 @@
+.log-in-register-container {
+  display: flex;
+  background-color: #1c1e22;
+  border: 1px solid black;
+  justify-content: center;
+  margin-top: -6rem;
+  width: 12%;
+  border-radius: 15px;
+  margin-inline-start: 85%;
+}
+a,
+.username {
+  text-decoration: none;
+  color: white;
+}
+
+.admin-button {
+  color: white;
+}
+
+.user-info {
+  display: flex;
+}
