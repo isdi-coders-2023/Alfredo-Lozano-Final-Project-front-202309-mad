@@ -1,7 +1,33 @@
-.form-section {
-  padding: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+@import '../../resorces';
+
+.form {
+  text-align: center;
+  font-family: Libre Franklin;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 2rem;
+  margin: 20px;
+
+  .email {
+    margin: 20px;
+    flex-wrap: wrap;
+    gap: 1rem;
+    input#email {
+      border-radius: 1rem;
+      width: 20rem;
+      padding: 0.3rem;
+    }
+  }
+  .password {
+    margin: 20px;
+    flex-wrap: wrap;
+    gap: 1rem;
+    input#email {
+      border-radius: 1rem;
+      width: 20rem;
+      padding: 0.3rem;
+    }
+  }
 }
