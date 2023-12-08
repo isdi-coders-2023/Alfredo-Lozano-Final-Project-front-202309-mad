@@ -1,0 +1,48 @@
+@import '../../resorces';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 10px;
+  justify-content: space-around;
+  height: 70vh;
+  width: 50%;
+  margin: 0;
+  margin-left: 25%;
+  margin-top: 2rem;
+  font-family: Libre Franklin;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  align-items: center;
+
+  .h2 {
+    font-size: 20px;
+  }
+
+  .email,
+  .password {
+    margin: 20px;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+
+    input {
+      border-radius: 1rem;
+      width: 20rem;
+      padding: 0.3rem;
+    }
+  }
+  .submit {
+    margin: 20px;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+  }
+}

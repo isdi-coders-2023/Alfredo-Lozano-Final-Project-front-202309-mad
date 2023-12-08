@@ -1,7 +1,7 @@
 import { SyntheticEvent, useState } from 'react';
 import { useUsers } from '../../hooks/use.users';
 import { UserLogin } from '../../models/user.model';
-import './login.scss';
+import style from './Login.module.scss';
 import Swal from 'sweetalert2';
 
 export default function Login() {
@@ -39,35 +39,33 @@ export default function Login() {
   };
 
   return (
-    <>
-      <section className={'form'}>
-        <h2>Login</h2>
-        {!hasLogin && (
-          <form onSubmit={handleSubmit} aria-label="form">
-            <div className={'email'}>
-              <label htmlFor="email" className="email">
-                Email:{' '}
-              </label>
-              <input type="email" id="email" name="email" role="textbox" />
-            </div>
-            <div className={'password'}>
-              <label htmlFor="password">Password: </label>
-              <input type="text" id="password" name="password" />
-            </div>
-            <div className={'submit'}>
-              <button type="submit">Sign In</button>
-            </div>
-          </form>
-        )}
-        {hasLogin && (
-          <div>
-            <p>Login correcto</p>
-            {/* <Link to={'/register'}>
+    <section className={style.form}>
+      <h2 className={style.h2}>Login</h2>
+      {!hasLogin && (
+        <form onSubmit={handleSubmit} aria-label="form">
+          <div className={style.email}>
+            <label htmlFor="email" className="email">
+              Email:{' '}
+            </label>
+            <input type="email" id="email" name="email" role="textbox" />
+          </div>
+          <div className={style.password}>
+            <label htmlFor="password">Password: </label>
+            <input type="text" id="password" name="password" />
+          </div>
+          <div className={style.submit}>
+            <button type="submit">Sign In</button>
+          </div>
+        </form>
+      )}
+      {hasLogin && (
+        <div>
+          <p>Login correcto</p>
+          {/* <Link to={'/register'}>
             <button type="button">Continuar</button>
           </Link> */}
-          </div>
-        )}
-      </section>
-    </>
+        </div>
+      )}
+    </section>
   );
 }

@@ -9,7 +9,7 @@ export function Router() {
     <main>
       <Suspense>
         <Routes>
-          <Route path="/" element={<Login></Login>}></Route>
+          <Route path="" element={<Login></Login>}></Route>
           <Route path="/home" element={<Login></Login>}></Route>
           <Route path="/register" element={<Register></Register>}></Route>
           <Route path="/*" element={<ErrorPage></ErrorPage>}></Route>
