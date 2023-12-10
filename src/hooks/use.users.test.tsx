@@ -3,7 +3,7 @@ import { useUsers } from './use.users';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { useDispatch } from 'react-redux';
-import { ApiRepoUsers } from '../services/api.repo.users';
+import { ApiRepoUsers } from '../services/users/api.repo.users';
 
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),

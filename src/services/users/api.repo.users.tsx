@@ -1,5 +1,5 @@
-import { User, UserLogin } from '../models/user.model';
-import { LoginResponse } from '../types/login.user';
+import { User, UserLogin } from '../../models/user.model';
+import { LoginResponse } from '../../types/login.user';
 
 export class ApiRepoUsers {
   apiUrl = 'http://localhost:1969/user';
