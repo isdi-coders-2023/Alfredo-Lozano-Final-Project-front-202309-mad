@@ -1,5 +1,5 @@
 import { User } from '../../models/user.model';
-import { ApiRepoUsers } from '../../services/api.repo.users';
+import { ApiRepoUsers } from '../../services/users/api.repo.users';
 import { appStore } from '../../store/store';
 import { logout } from './user.slice';
 import { loginThunk, registerThunk } from './user.thunk';

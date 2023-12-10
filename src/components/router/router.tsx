@@ -4,6 +4,7 @@ import { Suspense, lazy } from 'react';
 const Login = lazy(() => import('../login/login'));
 const Register = lazy(() => import('../register/register'));
 const ErrorPage = lazy(() => import('../error/error'));
+const CreatePub = lazy(() => import('../pubs/pubs.form'));
 export function Router() {
   return (
     <main>
@@ -12,6 +13,7 @@ export function Router() {
           <Route path="" element={<Login></Login>}></Route>
           <Route path="/home" element={<Login></Login>}></Route>
           <Route path="/register" element={<Register></Register>}></Route>
+          <Route path="/addPub" element={<CreatePub></CreatePub>}></Route>
           <Route path="/*" element={<ErrorPage></ErrorPage>}></Route>
         </Routes>
       </Suspense>

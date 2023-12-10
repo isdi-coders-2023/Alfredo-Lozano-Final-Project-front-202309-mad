@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { LoginResponse } from '../../types/login.user';
 import { User, UserLogin } from '../../models/user.model';
-import { ApiRepoUsers } from '../../services/api.repo.users';
+import { ApiRepoUsers } from '../../services/users/api.repo.users';
 import { Storage } from '../../services/storage';
 
 export const loginThunk = createAsyncThunk<
