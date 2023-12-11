@@ -17,12 +17,7 @@ const initialState: PubState = {
 const pubsSlice = createSlice({
   name: 'pubs',
   initialState,
-  reducers: {
-    logout(state: PubState) {
-      state.loggedPub = null;
-      state.loggingState = 'idle';
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder.addCase(createThunk.fulfilled, (state: PubState, { payload }) => {
       state.loggedPub = payload;

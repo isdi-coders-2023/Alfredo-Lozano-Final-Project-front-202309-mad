@@ -9,11 +9,14 @@ export const loginThunk = createAsyncThunk<
   {
     loginUser: UserLogin;
     repo: ApiRepoUsers;
-    userStore: Storage<{ token: string }>;
+    userStore: Storage<{ token: string; id: string }>;
   }
 >('login', async ({ loginUser, repo, userStore }) => {
   const result = await repo.login(loginUser);
-  userStore.set({ token: result.token });
+  userStore.set({
+    token: result.token,
+    id: result.user.id,
+  });
   return result;
 });
 

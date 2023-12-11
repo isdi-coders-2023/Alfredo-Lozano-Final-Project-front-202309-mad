@@ -58,9 +58,8 @@ export default function CreatePub() {
             <label htmlFor="owner">owner: </label>
             <input type="text" id="owner" name="age" />
           </div>
-          <div className={style.inputs}>
-            <label htmlFor="userName">owner: </label>
-            <input type="text" id="owner" name="owner" />
+          <div className={style.submit}>
+            <button type="submit">Create</button>
           </div>
         </form>
       )}

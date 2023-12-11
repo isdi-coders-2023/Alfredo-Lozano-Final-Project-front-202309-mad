@@ -31,4 +31,18 @@ export class ApiRepoUsers {
       throw new Error(response.status + ' ' + response.statusText);
     return response.json();
   }
+
+  async getById(id: User['id']): Promise<User> {
+    const url = this.apiUrl + '/id';
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(id),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok)
+      throw new Error(response.status + ' ' + response.statusText);
+    return response.json();
+  }
 }
