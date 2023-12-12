@@ -5,7 +5,7 @@ import { ApiRepoBeers } from '../../services/beers/api.repo.beers';
 export const createBeerThunk = createAsyncThunk<
   Beer,
   {
-    newBeer: Partial<Beer>;
+    newBeer: FormData;
     repo: ApiRepoBeers;
   }
 >('register', async ({ newBeer, repo }) => {

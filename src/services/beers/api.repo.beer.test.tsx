@@ -1,22 +1,27 @@
 import { Beer } from '../../models/beer.model';
 import { ApiRepoBeers } from './api.repo.beers';
 
-const newBeer: Partial<Beer> = {} as unknown as Beer;
+const newBeer: FormData = {} as unknown as FormData;
+jest.mock('./take.id', () => ({
+  getUserIdFromLocalStorage: jest.fn().mockResolvedValue(''),
+  getUserTokenFromLocalStorage: jest.fn().mockResolvedValue(''),
+}));
 
 describe('Given User ApiRepo class', () => {
   describe('When we instantiate it and response is ok', () => {
-    let jsonMock: jest.Mock;
-    const apiRepoBeer = new ApiRepoBeers();
-    beforeEach(() => {
-      jsonMock = jest.fn().mockResolvedValue(newBeer);
+    test('should send a POST request to the correct URL with the correct body and headers, and return the parsed response', async () => {
+      const newBeer: FormData = {} as unknown as FormData;
+      const userToken = '';
+      const expectedResponse: Beer = {} as unknown as Beer;
       global.fetch = jest.fn().mockResolvedValueOnce({
         ok: true,
-        json: jsonMock,
+        json: jest.fn().mockResolvedValueOnce(expectedResponse),
       });
-    });
-    test('should successfully create a new pub with valid input', async () => {
-      const createdPub = await apiRepoBeer.createBeer(newBeer);
-      expect(createdPub).toEqual(newBeer);
+
+      const apiRepoBeers = new ApiRepoBeers(userToken);
+      const result = await apiRepoBeers.createBeer(newBeer);
+
+      expect(result).toEqual(expectedResponse);
     });
   });
   describe('When we instantiate it and response is fail', () => {
@@ -26,7 +31,7 @@ describe('Given User ApiRepo class', () => {
       });
     });
     test('should throw an error when newPub parameter is null', async () => {
-      const apiRepoBeer = new ApiRepoBeers();
+      const apiRepoBeer = new ApiRepoBeers('');
       await expect(apiRepoBeer.createBeer(newBeer)).rejects.toThrow();
     });
   });

@@ -2,12 +2,7 @@ import { Beer } from '../../models/beer.model';
 import {
   getUserIdFromLocalStorage,
   getUserTokenFromLocalStorage,
-} from './get.iD';
-
-const buildApiUrl = (endpoint: string) => {
-  const userID = getUserIdFromLocalStorage();
-  return `http://localhost:1969/${endpoint}/${userID}`;
-};
+} from './take.id.tsx';
 
 const userToken = getUserTokenFromLocalStorage();
 
@@ -18,7 +13,8 @@ export class ApiRepoBeers {
   }
 
   async createBeer(newBeer: FormData): Promise<Beer> {
-    const url = await buildApiUrl('beer');
+    const userID = getUserIdFromLocalStorage();
+    const url = `http://localhost:1969/beer/${userID}`;
     console.log(url);
     console.log(newBeer);
     console.log(userToken);

@@ -30,6 +30,7 @@ describe('Given the users slice reducer', () => {
           repo,
           userStore: { set: jest.fn() } as unknown as Storage<{
             token: string;
+            id: string;
           }>,
         })
       );
@@ -56,6 +57,7 @@ describe('Given the users slice reducer', () => {
           repo,
           userStore: { set: jest.fn() } as unknown as Storage<{
             token: string;
+            id: string;
           }>,
         })
       );
