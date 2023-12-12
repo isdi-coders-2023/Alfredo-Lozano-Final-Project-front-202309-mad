@@ -1,44 +1,33 @@
 import { Beer } from '../../models/beer.model';
-
-const getUserIdFromLocalStorage = () => {
-  const userString = localStorage.getItem('user');
-  if (!userString) {
-    throw new Error('No se encontró información de usuario en el localStorage');
-  }
-
-  let user;
-  try {
-    user = JSON.parse(userString);
-    // eslint-disable-next-line no-unused-vars
-  } catch (error) {
-    throw new Error(
-      'Error al analizar la información del usuario desde el localStorage'
-    );
-  }
-
-  if (!user || !user.id) {
-    throw new Error(
-      'No se encontró la propiedad "id" en la información del usuario'
-    );
-  }
-
-  return user.id;
-};
+import {
+  getUserIdFromLocalStorage,
+  getUserTokenFromLocalStorage,
+} from './get.iD';
 
 const buildApiUrl = (endpoint: string) => {
   const userID = getUserIdFromLocalStorage();
   return `http://localhost:1969/${endpoint}/${userID}`;
 };
 
+const userToken = getUserTokenFromLocalStorage();
+
 export class ApiRepoBeers {
-  async createBeer(newBeer: Partial<Beer>): Promise<Beer> {
+  userToken: string;
+  constructor(userToken: string) {
+    this.userToken = userToken;
+  }
+
+  async createBeer(newBeer: FormData): Promise<Beer> {
     const url = await buildApiUrl('beer');
+    console.log(url);
+    console.log(newBeer);
+    console.log(userToken);
     try {
       const response = await fetch(url, {
         method: 'POST',
-        body: JSON.stringify(newBeer),
+        body: newBeer,
         headers: {
-          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + userToken,
         },
       });
 
