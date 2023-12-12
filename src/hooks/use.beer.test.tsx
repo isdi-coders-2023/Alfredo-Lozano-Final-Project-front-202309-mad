@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { useDispatch } from 'react-redux';
 import { useBeer } from './use.beers';
 
-jest.mock('../services/beers/take.id', () => ({
+jest.mock('../types/take.id', () => ({
   getUserIdFromLocalStorage: jest.fn().mockResolvedValue(''),
   getUserTokenFromLocalStorage: jest.fn().mockResolvedValue(''),
 }));

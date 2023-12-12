@@ -3,7 +3,7 @@ import { appStore } from '../../store/store';
 import { createBeerThunk } from './beer.thunk';
 
 const newBeer = {} as unknown as FormData;
-jest.mock('../../services/beers/take.id', () => ({
+jest.mock('../../types/take.id', () => ({
   getUserIdFromLocalStorage: jest.fn().mockResolvedValue(''),
   getUserTokenFromLocalStorage: jest.fn().mockResolvedValue(''),
 }));
