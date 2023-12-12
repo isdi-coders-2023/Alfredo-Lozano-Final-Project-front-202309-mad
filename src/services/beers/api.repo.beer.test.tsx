@@ -2,7 +2,7 @@ import { Beer } from '../../models/beer.model';
 import { ApiRepoBeers } from './api.repo.beers';
 
 const newBeer: FormData = {} as unknown as FormData;
-jest.mock('./take.id', () => ({
+jest.mock('../../types/take.id.tsx', () => ({
   getUserIdFromLocalStorage: jest.fn().mockResolvedValue(''),
   getUserTokenFromLocalStorage: jest.fn().mockResolvedValue(''),
 }));
