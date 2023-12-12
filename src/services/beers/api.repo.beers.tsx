@@ -2,7 +2,7 @@ import { Beer } from '../../models/beer.model';
 import {
   getUserIdFromLocalStorage,
   getUserTokenFromLocalStorage,
-} from './take.id.tsx';
+} from '../../types/take.id.tsx';
 
 const userToken = getUserTokenFromLocalStorage();
 

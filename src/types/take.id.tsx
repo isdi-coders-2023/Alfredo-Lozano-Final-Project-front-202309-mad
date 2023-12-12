@@ -41,7 +41,7 @@ export function getUserTokenFromLocalStorage() {
 
   if (!user || !user.token) {
     throw new Error(
-      'No se encontró la propiedad "id" en la información del usuario'
+      'No se encontró la propiedad "token" en la información del usuario'
     );
   }
 
