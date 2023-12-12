@@ -8,7 +8,7 @@ import * as ac from '../slices/user.slices/user.slice';
 import { loginThunk } from '../slices/user.slices/user.thunk';
 
 export function useUsers() {
-  const userStore = new Storage<{ token: string }>('user');
+  const userStore = new Storage<{ token: string; id: string }>('user');
   const dispatch = useDispatch<AppDispatch>();
   const repo = new ApiRepoUsers();
 

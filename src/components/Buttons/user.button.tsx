@@ -25,14 +25,16 @@ export function UserButtons() {
       {!loggedUser && location.pathname === '/home' && registerLink}
       {!loggedUser && location.pathname === '/register' && homeLink}
       {loggedUser && (
-        <Link to="/" className={style.container}>
-          <button className={style.container} onClick={logoutUser}>
-            Logout
-          </button>
-          <div className="user-info">
-            <p className="username">Hola {loggedUser.name}</p>
-          </div>
-        </Link>
+        <>
+          {location.pathname !== '/addBeer' && (
+            <Link to="/addBeer" className={style.container}>
+              <button className={style.container}>Add Beer</button>
+            </Link>
+          )}
+          <Link to="/" className={style.container} onClick={logoutUser}>
+            <button className={style.container}>Logout</button>
+          </Link>
+        </>
       )}
     </section>
   );
