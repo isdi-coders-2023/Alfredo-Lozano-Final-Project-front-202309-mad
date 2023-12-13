@@ -41,7 +41,7 @@ describe('Given the users slice reducer', () => {
     const state = appStore.getState().usersState;
     expect(state.loggedUser).toBeNull();
     expect(state.token).toBe('');
-    expect(state.loggingState).toBe('idle');
+    expect(state.userState).toBe('idle');
   });
 
   describe('When it is instantiated incorrectly', () => {
@@ -62,12 +62,12 @@ describe('Given the users slice reducer', () => {
         })
       );
       const state = appStore.getState().usersState;
-      expect(state.loggingState).toBe('error');
+      expect(state.userState).toBe('error');
     });
     test('should set RegisterState to error when user fails to log in', async () => {
       await appStore.dispatch(registerThunk({ newUser, repo }));
       const state = appStore.getState().usersState;
-      expect(state.loggingState).toBe('error');
+      expect(state.userState).toBe('error');
     });
   });
 });

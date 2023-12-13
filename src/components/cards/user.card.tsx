@@ -9,10 +9,7 @@ export default function UserCard() {
   }
 
   return (
-    <li
-      className="User-card"
-      style={{ textDecoration: 'none', color: 'inherit' }}
-    >
+    <>
       <div className="card-direction-container">
         <p>Nombre: {loggedUser.name}</p>
         <p>Apellido: {loggedUser.surname}</p>
@@ -27,6 +24,6 @@ export default function UserCard() {
           ))}
         </ul>
       </div>
-    </li>
+    </>
   );
 }

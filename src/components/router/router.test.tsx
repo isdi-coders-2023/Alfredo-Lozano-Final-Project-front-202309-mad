@@ -3,6 +3,11 @@ import { MemoryRouter } from 'react-router-dom';
 import { Router } from './router';
 import '@testing-library/jest-dom';
 
+jest.mock('../../types/take.id.tsx', () => ({
+  getUserIdFromLocalStorage: jest.fn().mockResolvedValue(''),
+  getUserTokenFromLocalStorage: jest.fn().mockResolvedValue(''),
+}));
+
 describe('Given the AppRoutes component', () => {
   describe('When it is instantiate with a route /', () => {
     const MockedComponentLogin = jest.fn().mockReturnValue(<h2>Login</h2>);

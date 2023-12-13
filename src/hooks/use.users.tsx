@@ -12,10 +12,11 @@ import { useMemo } from 'react';
 export function useUsers() {
   const userStore = new Storage<{ token: string; id: string }>('user');
   const {
-    currentUserItem,
-    currentUserItem: loggedUser,
+    loggedUser: currentUserItem,
+    loggedUser,
     user,
   } = useSelector((state: RootState) => state.usersState);
+
   const dispatch = useDispatch<AppDispatch>();
   const repo = useMemo(() => new ApiRepoUsers(), []);
 

@@ -8,6 +8,7 @@ import { ApiRepoUsers } from '../services/users/api.repo.users';
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useDispatch: jest.fn().mockReturnValue(jest.fn()),
+  useSelector: jest.fn().mockReturnValue(jest.fn()),
 }));
 
 const mockLoginUser = {} as UserLogin;
@@ -15,7 +16,7 @@ const mockNewUser = {} as unknown as Partial<User>;
 
 describe('Given useUsers Hook', () => {
   const TestComponent = () => {
-    const { logoutUser, login, register, makeLogOut } = useUsers();
+    const { logoutUser, login, register, makeLogOut, getUserByID } = useUsers();
 
     return (
       <>
@@ -23,6 +24,7 @@ describe('Given useUsers Hook', () => {
         <button onClick={() => login(mockLoginUser)}> </button>
         <button onClick={() => register(mockNewUser)}> </button>
         <button onClick={() => logoutUser()}> </button>
+        <button onClick={() => getUserByID()}> </button>
       </>
     );
   };

@@ -10,7 +10,8 @@ jest.mock('../types/take.id', () => ({
 
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
-  useDispatch: jest.fn(),
+  useDispatch: jest.fn().mockReturnValue(jest.fn()),
+  useSelector: jest.fn().mockReturnValue(jest.fn()),
 }));
 
 describe('Given usePubs Hook', () => {

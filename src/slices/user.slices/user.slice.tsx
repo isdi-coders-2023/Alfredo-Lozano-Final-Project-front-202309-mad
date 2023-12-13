@@ -6,14 +6,14 @@ import { LoginResponse } from '../../types/login.user';
 type LoginState = 'idle' | 'logging' | 'error';
 
 type UserState = {
-  currentUserItem: User | null;
+  loggedUser: User | null;
   userState: LoginState;
   token: string;
   user: User[];
 };
 
 const initialState: UserState = {
-  currentUserItem: null,
+  loggedUser: null,
   userState: 'idle',
   token: '',
   user: [],
@@ -24,7 +24,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     logout(state: UserState) {
-      state.currentUserItem = null;
+      state.loggedUser = null;
       state.user = [];
       state.token = '';
       state.userState = 'idle';
@@ -34,7 +34,7 @@ const userSlice = createSlice({
     builder.addCase(
       loginThunk.fulfilled,
       (state: UserState, { payload }: PayloadAction<LoginResponse>) => {
-        state.currentUserItem = payload.user;
+        state.loggedUser = payload.user;
         state.token = payload.token;
         state.userState = 'idle';
       }
@@ -43,7 +43,7 @@ const userSlice = createSlice({
     builder.addCase(
       getUserByIdThunk.fulfilled,
       (state: UserState, { payload }: PayloadAction<User>) => {
-        state.currentUserItem = payload;
+        state.loggedUser = payload;
         state.userState = 'idle';
       }
     );
@@ -51,7 +51,7 @@ const userSlice = createSlice({
     builder.addCase(
       registerThunk.fulfilled,
       (state: UserState, { payload }) => {
-        state.currentUserItem = payload;
+        state.loggedUser = payload;
         state.userState = 'idle';
       }
     );
