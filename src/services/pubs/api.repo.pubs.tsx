@@ -16,4 +16,11 @@ export class ApiRepoPubs {
       throw new Error(response.status + ' ' + response.statusText);
     return response.json();
   }
+
+  async loadPubs(): Promise<Pubs[]> {
+    const response = await fetch(this.apiUrl);
+    if (!response.ok)
+      throw new Error(response.status + ' ' + response.statusText);
+    return response.json();
+  }
 }

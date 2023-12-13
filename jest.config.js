@@ -15,7 +15,6 @@ export default {
     'src/store/store.tsx',
     'src/pages/*.ts',
     'src/entities/*.ts',
-    'src/types/*.ts',
-    'src/services/beers/get.ID.tsx',
+    'src/types/*.tsx',
   ],
 };

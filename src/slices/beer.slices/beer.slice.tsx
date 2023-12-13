@@ -1,37 +1,62 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Beer } from '../../models/beer.model';
-import { createBeerThunk } from './beer.thunk';
+import { createBeerThunk, loadBeerThunk } from './beer.thunk';
 
 type LoginState = 'idle' | 'logging' | 'error';
 
 type BeerState = {
-  loggedBeer: Beer | null;
-  loggingState: LoginState;
+  currentBeerItem: Beer | null;
+  beerState: LoginState;
+  beers: Beer[];
 };
 
 const initialState: BeerState = {
-  loggedBeer: null,
-  loggingState: 'idle',
+  currentBeerItem: null,
+  beerState: 'idle',
+  beers: [],
 };
 
 const beersSlice = createSlice({
   name: 'beers',
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentBeerItem(
+      state: BeerState,
+      { payload }: PayloadAction<Beer | null>
+    ) {
+      state.currentBeerItem = payload;
+      return state;
+    },
+  },
   extraReducers(builder) {
     builder.addCase(
       createBeerThunk.fulfilled,
       (state: BeerState, { payload }) => {
-        state.loggedBeer = payload;
-        state.loggingState = 'idle';
+        state.currentBeerItem = payload;
+        state.beerState = 'idle';
       }
     );
+    builder.addCase(
+      loadBeerThunk.fulfilled,
+      (state: BeerState, { payload }) => {
+        state.beers = payload;
+        state.beerState = 'idle';
+      }
+    );
+    builder.addCase(loadBeerThunk.pending, (state: BeerState) => {
+      state.beerState = 'logging';
+    });
+
+    builder.addCase(loadBeerThunk.rejected, (state: BeerState) => {
+      state.beerState = 'error';
+    });
+
     builder.addCase(createBeerThunk.pending, (state: BeerState) => {
-      state.loggingState = 'logging';
+      state.beerState = 'logging';
     });
 
     builder.addCase(createBeerThunk.rejected, (state: BeerState) => {
-      state.loggingState = 'error';
+      state.beerState = 'error';
     });
   },
 });

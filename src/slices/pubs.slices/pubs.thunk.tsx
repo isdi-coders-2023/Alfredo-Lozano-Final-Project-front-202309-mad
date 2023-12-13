@@ -12,3 +12,11 @@ export const createThunk = createAsyncThunk<
   const result = await repo.createPub(newPub);
   return result;
 });
+
+export const loadPubsThunk = createAsyncThunk<Pubs[], ApiRepoPubs>(
+  'load',
+  async (repo) => {
+    const pubs = await repo.loadPubs();
+    return pubs;
+  }
+);

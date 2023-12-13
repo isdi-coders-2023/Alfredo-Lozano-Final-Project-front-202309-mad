@@ -12,3 +12,11 @@ export const createBeerThunk = createAsyncThunk<
   const result = await repo.createBeer(newBeer);
   return result;
 });
+
+export const loadBeerThunk = createAsyncThunk<Beer[], ApiRepoBeers>(
+  'load',
+  async (repo) => {
+    const pubs = await repo.loadBeers();
+    return pubs;
+  }
+);

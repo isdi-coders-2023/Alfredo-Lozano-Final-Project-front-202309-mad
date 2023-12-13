@@ -3,6 +3,7 @@ import { useUsers } from '../../hooks/use.users';
 import { UserLogin } from '../../models/user.model';
 import style from './Login.module.scss';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const [hasLogin, setHasLogin] = useState(false);
@@ -61,9 +62,9 @@ export default function Login() {
       {hasLogin && (
         <div>
           <p>Login correcto</p>
-          {/* <Link to={'/register'}>
+          <Link to={'/pubs'}>
             <button type="button">Continuar</button>
-          </Link> */}
+          </Link>
         </div>
       )}
     </section>

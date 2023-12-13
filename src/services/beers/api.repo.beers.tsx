@@ -37,4 +37,11 @@ export class ApiRepoBeers {
       throw new Error('Error al crear la cerveza');
     }
   }
+
+  async loadBeers(): Promise<Beer[]> {
+    const response = await fetch('http://localhost:1969/beer');
+    if (!response.ok)
+      throw new Error(response.status + ' ' + response.statusText);
+    return response.json();
+  }
 }
