@@ -8,19 +8,22 @@ const ErrorPage = lazy(() => import('../error/error'));
 const CreatePub = lazy(() => import('../pubs/pubs.form'));
 const CreateBeer = lazy(() => import('../beers/beers.form'));
 const PubList = lazy(() => import('../list/pub.list'));
+const UserCard = lazy(() => import('../cards/user.card'));
+
 export function Router() {
   return (
     <main>
-      <Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="" element={<Login></Login>}></Route>
-          <Route path="/home" element={<Login></Login>}></Route>
-          <Route path="/register" element={<Register></Register>}></Route>
-          <Route path="/addPub" element={<CreatePub></CreatePub>}></Route>
-          <Route path="/addBeer" element={<CreateBeer></CreateBeer>}></Route>
-          <Route path="/pubs" element={<PubList></PubList>}></Route>
-          <Route path="/beers" element={<BeerList></BeerList>}></Route>
-          <Route path="/*" element={<ErrorPage></ErrorPage>}></Route>
+          <Route path="" element={<Login />} />
+          <Route path="/home" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/user" element={<UserCard />} />
+          <Route path="/addPub" element={<CreatePub />} />
+          <Route path="/addBeer" element={<CreateBeer />} />
+          <Route path="/pubs" element={<PubList />} />
+          <Route path="/beers" element={<BeerList />} />
+          <Route path="/*" element={<ErrorPage />} />
         </Routes>
       </Suspense>
     </main>
