@@ -8,6 +8,9 @@ const newPub: Partial<Pubs> = {
   owner: 'Pub Owner',
   beers: [],
 };
+const pubs: Pubs[] = [
+  { id: '1', name: 'Pub 1', direction: 'Direction 1', owner: 'Owner 1' },
+];
 
 describe('Given User ApiRepo class', () => {
   describe('When we instantiate it and response is ok', () => {
@@ -24,6 +27,14 @@ describe('Given User ApiRepo class', () => {
       const createdPub = await apiRepoPubs.createPub(newPub);
       expect(createdPub).toEqual(newPub);
     });
+    test('should fetch data from the API successfully and return an array of Pubs', async () => {
+      global.fetch = jest.fn().mockResolvedValueOnce({
+        ok: true,
+        json: jest.fn().mockResolvedValueOnce(pubs),
+      });
+      const result = await apiRepoPubs.loadPubs();
+      expect(result).toEqual(pubs);
+    });
   });
   describe('When we instantiate it and response is fail', () => {
     beforeEach(() => {
@@ -34,6 +45,17 @@ describe('Given User ApiRepo class', () => {
     test('should throw an error when newPub parameter is null', async () => {
       const apiRepoPubs = new ApiRepoPubs();
       await expect(apiRepoPubs.createPub(newPub)).rejects.toThrow();
+    });
+    test('should throw an error if the API call fails', async () => {
+      const apiRepoPubs = new ApiRepoPubs();
+      global.fetch = jest.fn().mockResolvedValueOnce({
+        ok: false,
+        status: 500,
+        statusText: 'Internal Server Error',
+      });
+      await expect(apiRepoPubs.loadPubs()).rejects.toThrow(
+        '500 Internal Server Error'
+      );
     });
   });
 });

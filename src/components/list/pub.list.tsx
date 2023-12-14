@@ -14,7 +14,7 @@ export default function PubList() {
     <div className="list-container">
       <h2>Pubs</h2>
 
-      <ul className="clothes-list">
+      <ul className="pub-list">
         {pubs.map((item: Pubs) => (
           <PubCard key={item.id} pub={item} />
         ))}

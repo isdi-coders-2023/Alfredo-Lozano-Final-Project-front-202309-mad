@@ -15,9 +15,6 @@ export class ApiRepoBeers {
   async createBeer(newBeer: FormData): Promise<Beer> {
     const userID = getUserIdFromLocalStorage();
     const url = `http://localhost:1969/beer/${userID}`;
-    console.log(url);
-    console.log(newBeer);
-    console.log(userToken);
     try {
       const response = await fetch(url, {
         method: 'POST',

@@ -12,6 +12,12 @@ const mockRegister: Partial<User> = {
   age: 25,
   userName: 'johndoe',
 };
+const mockUserID = '123';
+jest.mock('../../types/take.id.tsx', () => ({
+  getUserIdFromLocalStorage: jest.fn().mockResolvedValue(''),
+  getUserTokenFromLocalStorage: jest.fn().mockResolvedValue(''),
+}));
+
 const repo = new ApiRepoUsers();
 describe('Given User ApiRepo class', () => {
   describe('When we instantiate it and response is ok', () => {
@@ -34,6 +40,18 @@ describe('Given User ApiRepo class', () => {
       const result = await repo.registerUser(mockRegister);
       expect(result).toEqual([]);
     });
+    test('should return a user object when provided with a valid user ID', async () => {
+      const mockUserID = '123';
+      const repo = new ApiRepoUsers();
+      const fetchMock = jest.fn().mockResolvedValueOnce({
+        ok: true,
+        json: jest.fn().mockResolvedValueOnce({}),
+      });
+      global.fetch = fetchMock;
+
+      const result = await repo.getUserbyID(mockUserID);
+      expect(result).toEqual({});
+    });
   });
 
   describe('When we instantiate it and response is bad', () => {
@@ -47,6 +65,9 @@ describe('Given User ApiRepo class', () => {
     });
     test('Then method reegisterUser dont shoul be used', async () => {
       expect(repo.registerUser(mockRegister)).rejects.toThrow();
+    });
+    test('Then method getUserIddont shoul be used', async () => {
+      expect(repo.getUserbyID(mockUserID)).rejects.toThrow();
     });
   });
 });
