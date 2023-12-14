@@ -1,22 +1,27 @@
 import { Route, Routes } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
+import BeerList from '../list/beer.list';
 
 const Login = lazy(() => import('../login/login'));
 const Register = lazy(() => import('../register/register'));
 const ErrorPage = lazy(() => import('../error/error'));
 const CreatePub = lazy(() => import('../pubs/pubs.form'));
 const CreateBeer = lazy(() => import('../beers/beers.form'));
+const PubList = lazy(() => import('../list/pub.list'));
+
 export function Router() {
   return (
     <main>
-      <Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="" element={<Login></Login>}></Route>
-          <Route path="/home" element={<Login></Login>}></Route>
-          <Route path="/register" element={<Register></Register>}></Route>
-          <Route path="/addPub" element={<CreatePub></CreatePub>}></Route>
-          <Route path="/addBeer" element={<CreateBeer></CreateBeer>}></Route>
-          <Route path="/*" element={<ErrorPage></ErrorPage>}></Route>
+          <Route path="" element={<Login />} />
+          <Route path="/home" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/addPub" element={<CreatePub />} />
+          <Route path="/addBeer" element={<CreateBeer />} />
+          <Route path="/pubs" element={<PubList />} />
+          <Route path="/beers" element={<BeerList />} />
+          <Route path="/*" element={<ErrorPage />} />
         </Routes>
       </Suspense>
     </main>

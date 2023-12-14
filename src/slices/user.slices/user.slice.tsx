@@ -1,20 +1,22 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { User } from '../../models/user.model';
-import { loginThunk, registerThunk } from './user.thunk';
+import { getUserByIdThunk, loginThunk, registerThunk } from './user.thunk';
 import { LoginResponse } from '../../types/login.user';
 
 type LoginState = 'idle' | 'logging' | 'error';
 
-type UserState = {
+export type UserState = {
   loggedUser: User | null;
-  loggingState: LoginState;
+  userState: LoginState;
   token: string;
+  user: User[];
 };
 
 const initialState: UserState = {
   loggedUser: null,
-  loggingState: 'idle',
+  userState: 'idle',
   token: '',
+  user: [],
 };
 
 const userSlice = createSlice({
@@ -23,8 +25,9 @@ const userSlice = createSlice({
   reducers: {
     logout(state: UserState) {
       state.loggedUser = null;
+      state.user = [];
       state.token = '';
-      state.loggingState = 'idle';
+      state.userState = 'idle';
     },
   },
   extraReducers(builder) {
@@ -33,27 +36,47 @@ const userSlice = createSlice({
       (state: UserState, { payload }: PayloadAction<LoginResponse>) => {
         state.loggedUser = payload.user;
         state.token = payload.token;
-        state.loggingState = 'idle';
+        state.userState = 'idle';
       }
     );
-    builder.addCase(registerThunk.pending, (state: UserState) => {
-      state.loggingState = 'logging';
-    });
+
+    builder.addCase(
+      getUserByIdThunk.fulfilled,
+      (state: UserState, { payload }: PayloadAction<User>) => {
+        state.loggedUser = payload;
+        state.userState = 'idle';
+      }
+    );
+
     builder.addCase(
       registerThunk.fulfilled,
       (state: UserState, { payload }) => {
         state.loggedUser = payload;
-        state.loggingState = 'idle';
+        state.userState = 'idle';
       }
     );
-    builder.addCase(registerThunk.rejected, (state: UserState) => {
-      state.loggingState = 'error';
+
+    builder.addCase(getUserByIdThunk.pending, (state: UserState) => {
+      state.userState = 'logging';
     });
+
+    builder.addCase(getUserByIdThunk.rejected, (state: UserState) => {
+      state.userState = 'error';
+    });
+
+    builder.addCase(registerThunk.pending, (state: UserState) => {
+      state.userState = 'logging';
+    });
+
+    builder.addCase(registerThunk.rejected, (state: UserState) => {
+      state.userState = 'error';
+    });
+
     builder.addCase(loginThunk.pending, (state: UserState) => {
-      state.loggingState = 'logging';
+      state.userState = 'logging';
     });
     builder.addCase(loginThunk.rejected, (state: UserState) => {
-      state.loggingState = 'error';
+      state.userState = 'error';
     });
   },
 });

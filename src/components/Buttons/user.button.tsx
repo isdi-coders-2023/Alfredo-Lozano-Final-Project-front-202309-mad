@@ -5,7 +5,9 @@ import { useUsers } from '../../hooks/use.users';
 import style from './User.button.module.scss';
 
 export function UserButtons() {
-  const { loggedUser } = useSelector((state: RootState) => state.usersState);
+  const { loggedUser: currentUserItem } = useSelector(
+    (state: RootState) => state.usersState
+  );
   const { logoutUser } = useUsers();
   const location = useLocation();
   const registerLink = (
@@ -21,10 +23,10 @@ export function UserButtons() {
 
   return (
     <section className={style.container}>
-      {!loggedUser && location.pathname === '/' && registerLink}
-      {!loggedUser && location.pathname === '/home' && registerLink}
-      {!loggedUser && location.pathname === '/register' && homeLink}
-      {loggedUser && (
+      {!currentUserItem && location.pathname === '/' && registerLink}
+      {!currentUserItem && location.pathname === '/home' && registerLink}
+      {!currentUserItem && location.pathname === '/register' && homeLink}
+      {currentUserItem && (
         <>
           {location.pathname !== '/addBeer' && (
             <Link to="/addBeer" className={style.container}>

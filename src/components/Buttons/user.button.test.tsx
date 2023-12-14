@@ -5,6 +5,11 @@ import '@testing-library/jest-dom';
 import { UserButtons } from './user.button';
 import { appStore } from '../../store/store';
 
+jest.mock('react-redux', () => ({
+  ...jest.requireActual('react-redux'),
+  useDispatch: jest.fn().mockReturnValue(jest.fn()),
+  useSelector: jest.fn().mockReturnValue(jest.fn()),
+}));
 describe('UserButtons Component', () => {
   test('should render Register button when user is not logged in and on home page', () => {
     render(

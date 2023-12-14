@@ -15,9 +15,6 @@ export class ApiRepoBeers {
   async createBeer(newBeer: FormData): Promise<Beer> {
     const userID = getUserIdFromLocalStorage();
     const url = `http://localhost:1969/beer/${userID}`;
-    console.log(url);
-    console.log(newBeer);
-    console.log(userToken);
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -36,5 +33,12 @@ export class ApiRepoBeers {
       console.error('Error al realizar la solicitud:', error);
       throw new Error('Error al crear la cerveza');
     }
+  }
+
+  async loadBeers(): Promise<Beer[]> {
+    const response = await fetch('http://localhost:1969/beer');
+    if (!response.ok)
+      throw new Error(response.status + ' ' + response.statusText);
+    return response.json();
   }
 }

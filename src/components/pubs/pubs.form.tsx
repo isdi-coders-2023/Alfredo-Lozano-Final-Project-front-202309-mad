@@ -44,6 +44,7 @@ export default function CreatePub() {
   return (
     <>
       <header title="Create Pubs"></header>
+      <h2>Add Pubb</h2>
       {!create && (
         <form onSubmit={handleSubmit} aria-label="form">
           <div className={style.inputs}>

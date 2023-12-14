@@ -30,3 +30,11 @@ export const registerThunk = createAsyncThunk<
   const result = await repo.registerUser(newUser);
   return result;
 });
+
+export const getUserByIdThunk = createAsyncThunk<
+  User,
+  { userId: User['id']; repo: ApiRepoUsers }
+>('getByID', async ({ userId, repo }) => {
+  const result = await repo.getUserbyID(userId);
+  return result;
+});

@@ -26,7 +26,7 @@ describe('Given the users slice reducer', () => {
     test('should set RegisterState to error when user fails to log in', async () => {
       await appStore.dispatch(createBeerThunk({ newBeer, repo }));
       const state = appStore.getState().usersState;
-      expect(state.loggingState).toBe('error');
+      expect(state.userState).toBe('error');
     });
   });
 });
