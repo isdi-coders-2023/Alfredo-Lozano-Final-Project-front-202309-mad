@@ -34,31 +34,39 @@ const beersSlice = createSlice({
       (state: BeerState, { payload }) => {
         state.currentBeerItem = payload;
         state.beerState = 'idle';
+        return state;
       }
     );
     builder.addCase(
       loadBeerThunk.fulfilled,
-      (state: BeerState, { payload }) => {
+      (state: BeerState, { payload }: PayloadAction<Beer[]>) => {
         state.beers = payload;
         state.beerState = 'idle';
+        return state;
       }
     );
+
+    builder.addCase(createBeerThunk.pending, (state: BeerState) => {
+      state.beerState = 'logging';
+      return state;
+    });
+
     builder.addCase(loadBeerThunk.pending, (state: BeerState) => {
       state.beerState = 'logging';
+      return state;
     });
 
     builder.addCase(loadBeerThunk.rejected, (state: BeerState) => {
       state.beerState = 'error';
-    });
-
-    builder.addCase(createBeerThunk.pending, (state: BeerState) => {
-      state.beerState = 'logging';
+      return state;
     });
 
     builder.addCase(createBeerThunk.rejected, (state: BeerState) => {
       state.beerState = 'error';
+      return state;
     });
   },
 });
 
 export default beersSlice.reducer;
+export const { setCurrentBeerItem } = beersSlice.actions;

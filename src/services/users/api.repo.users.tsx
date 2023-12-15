@@ -1,9 +1,14 @@
+import { Beer } from '../../models/beer.model';
 import { User, UserLogin } from '../../models/user.model';
 import { LoginResponse } from '../../types/login.user';
-import { getUserIdFromLocalStorage } from '../../types/take.id';
 
 export class ApiRepoUsers {
   apiUrl = 'http://localhost:1969/user/';
+  userToken: string | null;
+
+  constructor() {
+    this.userToken = localStorage.getItem('user') || null;
+  }
 
   async login(loginUser: UserLogin): Promise<LoginResponse> {
     const url = this.apiUrl + 'login';
@@ -34,9 +39,22 @@ export class ApiRepoUsers {
   }
 
   async getUserbyID(_id: User['id']): Promise<User> {
-    const userID = getUserIdFromLocalStorage();
-    const url = this.apiUrl + userID;
+    const userID = JSON.parse(this.userToken!);
+    const url = this.apiUrl + userID.id;
     const response = await fetch(url);
+    if (!response.ok)
+      throw new Error(response.status + ' ' + response.statusText);
+    return response.json();
+  }
+
+  async addBeertoTaste(beerId: Beer['id'], _userId: User['id']): Promise<User> {
+    const url = this.apiUrl + 'addBeer/' + beerId;
+    const response = await fetch(url, {
+      method: 'PATCH',
+      headers: {
+        Authorization: 'Bearer ' + this.userToken,
+      },
+    });
     if (!response.ok)
       throw new Error(response.status + ' ' + response.statusText);
     return response.json();

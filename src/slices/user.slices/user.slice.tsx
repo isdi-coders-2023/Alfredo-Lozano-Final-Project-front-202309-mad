@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { User } from '../../models/user.model';
-import { getUserByIdThunk, loginThunk, registerThunk } from './user.thunk';
+import { loginThunk, registerThunk } from './user.thunk';
 import { LoginResponse } from '../../types/login.user';
 
 type LoginState = 'idle' | 'logging' | 'error';
@@ -29,6 +29,10 @@ const userSlice = createSlice({
       state.token = '';
       state.userState = 'idle';
     },
+    setCurrentUser(state: UserState, { payload }: PayloadAction<User>) {
+      state.loggedUser = payload;
+      return state;
+    },
   },
   extraReducers(builder) {
     builder.addCase(
@@ -37,14 +41,7 @@ const userSlice = createSlice({
         state.loggedUser = payload.user;
         state.token = payload.token;
         state.userState = 'idle';
-      }
-    );
-
-    builder.addCase(
-      getUserByIdThunk.fulfilled,
-      (state: UserState, { payload }: PayloadAction<User>) => {
-        state.loggedUser = payload;
-        state.userState = 'idle';
+        return state;
       }
     );
 
@@ -53,34 +50,31 @@ const userSlice = createSlice({
       (state: UserState, { payload }) => {
         state.loggedUser = payload;
         state.userState = 'idle';
+        return state;
       }
     );
 
-    builder.addCase(getUserByIdThunk.pending, (state: UserState) => {
-      state.userState = 'logging';
-    });
-
-    builder.addCase(getUserByIdThunk.rejected, (state: UserState) => {
-      state.userState = 'error';
-    });
-
     builder.addCase(registerThunk.pending, (state: UserState) => {
       state.userState = 'logging';
+      return state;
     });
 
     builder.addCase(registerThunk.rejected, (state: UserState) => {
       state.userState = 'error';
+      return state;
     });
 
     builder.addCase(loginThunk.pending, (state: UserState) => {
       state.userState = 'logging';
+      return state;
     });
     builder.addCase(loginThunk.rejected, (state: UserState) => {
       state.userState = 'error';
+      return state;
     });
   },
 });
 
-export const { logout } = userSlice.actions;
+export const { logout, setCurrentUser } = userSlice.actions;
 
 export default userSlice.reducer;

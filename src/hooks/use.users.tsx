@@ -11,11 +11,9 @@ import { useMemo } from 'react';
 
 export function useUsers() {
   const userStore = new Storage<{ token: string; id: string }>('user');
-  const {
-    loggedUser: currentUserItem,
-    loggedUser,
-    user,
-  } = useSelector((state: RootState) => state.usersState);
+  const { loggedUser, user } = useSelector(
+    (state: RootState) => state.usersState
+  );
 
   const dispatch = useDispatch<AppDispatch>();
   const repo = useMemo(() => new ApiRepoUsers(), []);
@@ -24,15 +22,19 @@ export function useUsers() {
     repo.registerUser(newUser);
   };
 
+  const handleUserDetails = async (user: User) => {
+    dispatch(ac.setCurrentUser(user));
+  };
+
   const login = (loginUser: UserLogin) => {
     dispatch(loginThunk({ loginUser, repo, userStore }));
   };
 
   const getUserByID = () => {
-    if (currentUserItem) {
+    if (loggedUser) {
       dispatch(
         getUserByIdThunk({
-          userId: currentUserItem.id,
+          userId: loggedUser.id,
           repo,
         })
       );
@@ -56,5 +58,6 @@ export function useUsers() {
     register,
     makeLogOut,
     getUserByID,
+    handleUserDetails,
   };
 }

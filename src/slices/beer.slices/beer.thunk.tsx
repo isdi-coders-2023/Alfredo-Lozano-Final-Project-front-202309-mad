@@ -16,7 +16,7 @@ export const createBeerThunk = createAsyncThunk<
 export const loadBeerThunk = createAsyncThunk<Beer[], ApiRepoBeers>(
   'load',
   async (repo) => {
-    const pubs = await repo.loadBeers();
-    return pubs;
+    const beers = await repo.loadBeers();
+    return beers;
   }
 );

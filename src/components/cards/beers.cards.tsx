@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import { useBeer } from '../../hooks/use.beers';
 import { Beer } from '../../models/beer.model';
 import { makeImageURL } from '../../services/images';
 
@@ -6,6 +8,8 @@ type Props = {
 };
 
 export default function BeerCard({ beer }: Props) {
+  const { handleBeerDetails } = useBeer();
+
   // Const mobileBeerImg =
   //   beer?.beerImg.publicId && makeImageURL(beer.beerImg.publicId, 160);
   const desktopBeerImg =
@@ -18,7 +22,16 @@ export default function BeerCard({ beer }: Props) {
     >
       <div className="card-container">
         {/* <img src={mobileBeerImg} alt={`movil beer image de ${beer.name}`} /> */}
-        <img src={desktopBeerImg} alt={`movil beer image de ${beer.name}`} />
+        <Link
+          to={'/details/' + beer.id}
+          style={{ textDecoration: 'none', color: 'inherit' }}
+        >
+          <img
+            src={desktopBeerImg}
+            alt={`movil beer image de ${beer.name}`}
+            onClick={() => handleBeerDetails(beer)}
+          />
+        </Link>
         <div className="card-info-container">
           <div className="card-name-container">
             {' '}
@@ -38,11 +51,6 @@ export default function BeerCard({ beer }: Props) {
             {' '}
             alcohol:
             <p className="card-beers">{beer.alcohol}</p>
-          </div>
-          <div className="card-beers-container">
-            {' '}
-            probada:
-            <p className="card-beers">{beer.probada}</p>
           </div>
         </div>
       </div>
