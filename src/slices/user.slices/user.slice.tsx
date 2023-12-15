@@ -33,6 +33,10 @@ const userSlice = createSlice({
       state.loggedUser = payload;
       return state;
     },
+    addBeer(state: UserState, { payload }) {
+      state.user = payload.id;
+      return state;
+    },
   },
   extraReducers(builder) {
     builder.addCase(
@@ -54,11 +58,6 @@ const userSlice = createSlice({
       }
     );
 
-    builder.addCase(registerThunk.pending, (state: UserState) => {
-      state.userState = 'logging';
-      return state;
-    });
-
     builder.addCase(registerThunk.rejected, (state: UserState) => {
       state.userState = 'error';
       return state;
@@ -75,6 +74,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { logout, setCurrentUser } = userSlice.actions;
+export const { logout, setCurrentUser, addBeer } = userSlice.actions;
 
 export default userSlice.reducer;

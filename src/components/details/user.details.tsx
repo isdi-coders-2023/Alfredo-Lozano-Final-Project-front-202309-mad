@@ -10,7 +10,8 @@ export default function UserDetails() {
   useEffect(() => {
     loadBeer();
   }, [loadBeer]);
-
+  console.log(loggedUser);
+  console.log(loggedUser?.probada);
   return (
     <>
       <li

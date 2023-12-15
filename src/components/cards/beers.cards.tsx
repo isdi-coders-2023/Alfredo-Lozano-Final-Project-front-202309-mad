@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useBeer } from '../../hooks/use.beers';
 import { Beer } from '../../models/beer.model';
-import { makeImageURL } from '../../services/images';
 
 type Props = {
   beer: Beer;
@@ -9,11 +8,9 @@ type Props = {
 
 export default function BeerCard({ beer }: Props) {
   const { handleBeerDetails } = useBeer();
-
+  console.log(beer);
   // Const mobileBeerImg =
   //   beer?.beerImg.publicId && makeImageURL(beer.beerImg.publicId, 160);
-  const desktopBeerImg =
-    beer?.beerImg.publicId && makeImageURL(beer.beerImg.publicId, 250);
 
   return (
     <li
@@ -27,7 +24,7 @@ export default function BeerCard({ beer }: Props) {
           style={{ textDecoration: 'none', color: 'inherit' }}
         >
           <img
-            src={desktopBeerImg}
+            src={beer.beerImg.url}
             alt={`movil beer image de ${beer.name}`}
             onClick={() => handleBeerDetails(beer)}
           />

@@ -1,5 +1,6 @@
 import { useBeer } from '../../hooks/use.beers';
-
+import { useUsers } from '../../hooks/use.users';
+import { addBeer } from '../../slices/user.slices/user.slice';
 import { makeImageURL } from '../../services/images';
 
 export default function BeerDetails() {
@@ -8,6 +9,11 @@ export default function BeerDetails() {
   const desktopDetailBeerImg =
     currentBeerItem?.beerImg.publicId &&
     makeImageURL(currentBeerItem.beerImg.publicId, 550);
+
+  const { loggedUser } = useUsers();
+  const handleAddBeer = () => {
+    addBeer(loggedUser!.id);
+  };
 
   return (
     <li
@@ -41,6 +47,7 @@ export default function BeerDetails() {
             <p className="card-beers">{currentBeerItem!.alcohol}</p>
           </div>
         </div>
+        <button onClick={handleAddBeer}>❤️</button>
       </div>
     </li>
   );

@@ -8,6 +8,7 @@ import * as ac from '../slices/user.slices/user.slice';
 import { getUserByIdThunk, loginThunk } from '../slices/user.slices/user.thunk';
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
+import { Beer } from '../models/beer.model';
 
 export function useUsers() {
   const userStore = new Storage<{ token: string; id: string }>('user');
@@ -24,6 +25,10 @@ export function useUsers() {
 
   const handleUserDetails = async (user: User) => {
     dispatch(ac.setCurrentUser(user));
+  };
+
+  const addBeer = async (user: User['id'], beer: Beer['id']) => {
+    repo.addBeertoTaste(user, beer);
   };
 
   const login = (loginUser: UserLogin) => {
@@ -53,6 +58,7 @@ export function useUsers() {
   return {
     user,
     loggedUser,
+    addBeer,
     logoutUser,
     login,
     register,
