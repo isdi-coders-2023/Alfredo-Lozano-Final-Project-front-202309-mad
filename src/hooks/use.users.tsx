@@ -8,14 +8,13 @@ import * as ac from '../slices/user.slices/user.slice';
 import { getUserByIdThunk, loginThunk } from '../slices/user.slices/user.thunk';
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
+import { Beer } from '../models/beer.model';
 
 export function useUsers() {
   const userStore = new Storage<{ token: string; id: string }>('user');
-  const {
-    loggedUser: currentUserItem,
-    loggedUser,
-    user,
-  } = useSelector((state: RootState) => state.usersState);
+  const { loggedUser, user } = useSelector(
+    (state: RootState) => state.usersState
+  );
 
   const dispatch = useDispatch<AppDispatch>();
   const repo = useMemo(() => new ApiRepoUsers(), []);
@@ -24,15 +23,23 @@ export function useUsers() {
     repo.registerUser(newUser);
   };
 
+  const handleUserDetails = async (user: User) => {
+    dispatch(ac.setCurrentUser(user));
+  };
+
+  const addBeer = async (user: User['id'], beer: Beer['id']) => {
+    repo.addBeertoTaste(user, beer);
+  };
+
   const login = (loginUser: UserLogin) => {
     dispatch(loginThunk({ loginUser, repo, userStore }));
   };
 
   const getUserByID = () => {
-    if (currentUserItem) {
+    if (loggedUser) {
       dispatch(
         getUserByIdThunk({
-          userId: currentUserItem.id,
+          userId: loggedUser.id,
           repo,
         })
       );
@@ -51,10 +58,12 @@ export function useUsers() {
   return {
     user,
     loggedUser,
+    addBeer,
     logoutUser,
     login,
     register,
     makeLogOut,
     getUserByID,
+    handleUserDetails,
   };
 }

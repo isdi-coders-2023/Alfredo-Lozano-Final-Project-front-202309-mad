@@ -4,10 +4,15 @@ import { UserLogin } from '../../models/user.model';
 import style from './Login.module.scss';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 export default function Login() {
   const [hasLogin, setHasLogin] = useState(false);
-  const { login } = useUsers();
+  const { login, handleUserDetails } = useUsers();
+  const { loggedUser: currentUserItem } = useSelector(
+    (state: RootState) => state.usersState
+  );
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
@@ -62,8 +67,13 @@ export default function Login() {
       {hasLogin && (
         <div>
           <p>Login correcto</p>
-          <Link to={'/pubs'}>
-            <button type="button">Continuar</button>
+          <Link to={'/user'}>
+            <button
+              type="button"
+              onClick={() => handleUserDetails(currentUserItem!)}
+            >
+              Continuar
+            </button>
           </Link>
         </div>
       )}
