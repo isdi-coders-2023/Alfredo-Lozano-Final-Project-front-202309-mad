@@ -3,9 +3,10 @@ import { MemoryRouter } from 'react-router-dom';
 import { Router } from './router';
 import '@testing-library/jest-dom';
 
-jest.mock('../../types/take.id.tsx', () => ({
-  getUserIdFromLocalStorage: jest.fn().mockResolvedValue(''),
-  getUserTokenFromLocalStorage: jest.fn().mockResolvedValue(''),
+jest.mock('react-redux', () => ({
+  ...jest.requireActual('react-redux'),
+  useDispatch: jest.fn().mockReturnValue(jest.fn()),
+  useSelector: jest.fn().mockReturnValue(jest.fn()),
 }));
 
 describe('Given the AppRoutes component', () => {
@@ -90,6 +91,7 @@ describe('Given the AppRoutes component', () => {
       expect(element).toBeInTheDocument();
     });
   });
+
   describe('When it is instantiate with a route addBeer', () => {
     const MockedComponentaddBeer = jest
       .fn()

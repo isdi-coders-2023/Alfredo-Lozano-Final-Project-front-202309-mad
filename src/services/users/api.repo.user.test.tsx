@@ -1,3 +1,4 @@
+import { Beer } from '../../models/beer.model';
 import { User } from '../../models/user.model';
 import { ApiRepoUsers } from './api.repo.users';
 
@@ -5,6 +6,7 @@ const mockLogin = {
   email: 'test@example.com',
   password: 'password123',
 };
+const mockBeer = {} as unknown as Beer;
 const mockRegister: Partial<User> = {
   id: '123',
   name: 'John',
@@ -13,10 +15,7 @@ const mockRegister: Partial<User> = {
   userName: 'johndoe',
 };
 const mockUserID = '123';
-jest.mock('../../types/take.id.tsx', () => ({
-  getUserIdFromLocalStorage: jest.fn().mockResolvedValue(''),
-  getUserTokenFromLocalStorage: jest.fn().mockResolvedValue(''),
-}));
+localStorage.setItem('user', JSON.stringify({ token: mockUserID }));
 
 const repo = new ApiRepoUsers();
 describe('Given User ApiRepo class', () => {
@@ -52,6 +51,10 @@ describe('Given User ApiRepo class', () => {
       const result = await repo.getUserbyID(mockUserID);
       expect(result).toEqual({});
     });
+    test('should add a beer to users taste list', async () => {
+      const result = await repo.addBeertoTaste(mockBeer);
+      expect(result).toEqual([]);
+    });
   });
 
   describe('When we instantiate it and response is bad', () => {
@@ -68,6 +71,9 @@ describe('Given User ApiRepo class', () => {
     });
     test('Then method getUserIddont shoul be used', async () => {
       expect(repo.getUserbyID(mockUserID)).rejects.toThrow();
+    });
+    test('should throw an error when the server response is 404', async () => {
+      await expect(repo.addBeertoTaste(mockBeer)).rejects.toThrow();
     });
   });
 });

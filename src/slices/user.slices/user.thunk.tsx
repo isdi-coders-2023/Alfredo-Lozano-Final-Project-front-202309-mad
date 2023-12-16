@@ -42,8 +42,8 @@ export const getUserByIdThunk = createAsyncThunk<
 
 export const addBeertoTasteThunk = createAsyncThunk<
   User,
-  { userId: User['id']; beerId: Beer['id']; repo: ApiRepoUsers }
->('addBeer', async ({ userId, repo, beerId }) => {
-  const result = await repo.addBeertoTaste(userId, beerId);
+  { beer: Beer; repo: ApiRepoUsers }
+>('addBeer', async ({ beer, repo }) => {
+  const result = await repo.addBeertoTaste(beer);
   return result;
 });

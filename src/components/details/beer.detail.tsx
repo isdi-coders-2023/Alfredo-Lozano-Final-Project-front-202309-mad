@@ -1,14 +1,14 @@
 import { useBeer } from '../../hooks/use.beers';
 import { useUsers } from '../../hooks/use.users';
 import { addBeer } from '../../slices/user.slices/user.slice';
-import { makeImageURL } from '../../services/images';
+// Import { makeImageURL } from '../../services/images';
 
 export default function BeerDetails() {
   const { currentBeerItem } = useBeer();
 
-  const desktopDetailBeerImg =
-    currentBeerItem?.beerImg.publicId &&
-    makeImageURL(currentBeerItem.beerImg.publicId, 550);
+  // Const desktopDetailBeerImg =
+  //   currentBeerItem?.beerImg.publicId &&
+  //   makeImageURL(currentBeerItem.beerImg.publicId, 550);
 
   const { loggedUser } = useUsers();
   const handleAddBeer = () => {
@@ -23,7 +23,7 @@ export default function BeerDetails() {
       <div className="card-container">
         {/* <img src={mobileBeerImg} alt={`movil beer image de ${beer.name}`} /> */}
         <img
-          src={desktopDetailBeerImg}
+          src={currentBeerItem?.beerImg.url}
           alt={`movil beer image de ${currentBeerItem!.name}`}
         />
         <div className="card-info-container">

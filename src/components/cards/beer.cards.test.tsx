@@ -12,7 +12,6 @@ test('should render a beer card with the correct information when all beer infor
     brewer: 'Brewer 1',
     style: 'Style 1',
     alcohol: '5%',
-    probada: 'Yes',
     beerImg: {
       publicId: 'image1',
     },
@@ -34,6 +33,4 @@ test('should render a beer card with the correct information when all beer infor
   expect(screen.getByText('Style 1')).toBeInTheDocument();
   expect(screen.getByText('alcohol:')).toBeInTheDocument();
   expect(screen.getByText('5%')).toBeInTheDocument();
-  expect(screen.getByText('probada:')).toBeInTheDocument();
-  expect(screen.getByText('Yes')).toBeInTheDocument();
 });

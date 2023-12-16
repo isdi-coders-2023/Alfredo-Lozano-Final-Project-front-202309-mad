@@ -47,8 +47,8 @@ export class ApiRepoUsers {
     return response.json();
   }
 
-  async addBeertoTaste(beerId: Beer['id'], _userId: User['id']): Promise<User> {
-    const url = this.apiUrl + 'addBeer/' + beerId;
+  async addBeertoTaste(beer: Beer): Promise<User> {
+    const url = this.apiUrl + 'addBeer/' + beer.id;
     const response = await fetch(url, {
       method: 'PATCH',
       headers: {

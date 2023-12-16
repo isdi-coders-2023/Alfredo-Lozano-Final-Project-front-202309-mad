@@ -10,6 +10,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 
 const loginUser = { email: 'pepe', password: '123' };
 const newUser = {} as unknown as Partial<User>;
+const user = {} as unknown as User;
 
 describe('Given the users slice reducer', () => {
   describe('When it is instantiated correctly', () => {
@@ -18,6 +19,7 @@ describe('Given the users slice reducer', () => {
       login: jest.fn().mockReturnValue({
         loginUser,
         token: '',
+        userStore: { token: '123', id: '123' },
       }),
     } as unknown as ApiRepoUsers;
 
@@ -32,7 +34,7 @@ describe('Given the users slice reducer', () => {
         token: '',
       };
       const state: UserState = {
-        loggedUser: null,
+        loggedUser: user,
         userState: 'idle',
         token: '',
         user: [],
@@ -46,6 +48,7 @@ describe('Given the users slice reducer', () => {
 
       expect(newState.token).toEqual(payload.token);
       expect(newState.userState).toEqual('idle');
+      expect(newState.loggedUser).toEqual(newUser);
     });
     test('Then it should dispatch the loginUserAsync', () => {
       appStore.dispatch(

@@ -3,17 +3,13 @@ import userEvent from '@testing-library/user-event';
 import { useDispatch } from 'react-redux';
 import { useBeer } from './use.beers';
 
-jest.mock('../types/take.id', () => ({
-  getUserIdFromLocalStorage: jest.fn().mockResolvedValue(''),
-  getUserTokenFromLocalStorage: jest.fn().mockResolvedValue(''),
-}));
-
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useDispatch: jest.fn().mockReturnValue(jest.fn()),
   useSelector: jest.fn().mockReturnValue(jest.fn()),
 }));
-
+const mockUserID = '123';
+localStorage.setItem('user', JSON.stringify({ token: mockUserID }));
 describe('Given usePubs Hook', () => {
   const mockNewBeer = {} as unknown as FormData;
 

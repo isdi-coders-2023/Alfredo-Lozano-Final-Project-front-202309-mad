@@ -2,23 +2,19 @@ import { Beer } from '../../models/beer.model';
 import { ApiRepoBeers } from './api.repo.beers';
 
 const newBeer: FormData = {} as unknown as FormData;
-jest.mock('../../types/take.id.tsx', () => ({
-  getUserIdFromLocalStorage: jest.fn().mockResolvedValue(''),
-  getUserTokenFromLocalStorage: jest.fn().mockResolvedValue(''),
-}));
-
+const mockUserID = '123';
+localStorage.setItem('user', JSON.stringify({ token: mockUserID }));
 describe('Given User ApiRepo class', () => {
   describe('When we instantiate it and response is ok', () => {
     test('should send a POST request to the correct URL with the correct body and headers, and return the parsed response', async () => {
       const newBeer: FormData = {} as unknown as FormData;
-      const userToken = '';
       const expectedResponse: Beer = {} as unknown as Beer;
       global.fetch = jest.fn().mockResolvedValueOnce({
         ok: true,
         json: jest.fn().mockResolvedValueOnce(expectedResponse),
       });
 
-      const apiRepoBeers = new ApiRepoBeers(userToken);
+      const apiRepoBeers = new ApiRepoBeers();
       const result = await apiRepoBeers.createBeer(newBeer);
 
       expect(result).toEqual(expectedResponse);
@@ -30,7 +26,7 @@ describe('Given User ApiRepo class', () => {
         json: jest.fn().mockResolvedValueOnce(expectedResponse),
       });
 
-      const apiRepoBeers = new ApiRepoBeers('');
+      const apiRepoBeers = new ApiRepoBeers();
       const result = await apiRepoBeers.loadBeers();
 
       expect(result).toEqual(expectedResponse);
@@ -43,7 +39,7 @@ describe('Given User ApiRepo class', () => {
       });
     });
     test('should throw an error when newBeer parameter is null', async () => {
-      const apiRepoBeer = new ApiRepoBeers('');
+      const apiRepoBeer = new ApiRepoBeers();
       await expect(apiRepoBeer.createBeer(newBeer)).rejects.toThrow();
     });
     test('should throw an error if the API returns a non-OK status code', async () => {
@@ -53,7 +49,7 @@ describe('Given User ApiRepo class', () => {
         statusText: 'Not Found',
       });
 
-      const apiRepoBeers = new ApiRepoBeers('');
+      const apiRepoBeers = new ApiRepoBeers();
       await expect(apiRepoBeers.loadBeers()).rejects.toThrow('404 Not Found');
     });
   });

@@ -27,8 +27,8 @@ export function useUsers() {
     dispatch(ac.setCurrentUser(user));
   };
 
-  const addBeer = async (user: User['id'], beer: Beer['id']) => {
-    repo.addBeertoTaste(user, beer);
+  const addBeer = async (beer: Beer) => {
+    repo.addBeertoTaste(beer);
   };
 
   const login = (loginUser: UserLogin) => {

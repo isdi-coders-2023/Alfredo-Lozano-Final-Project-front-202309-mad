@@ -6,12 +6,15 @@ import BeerCard from '../cards/beers.cards';
 
 export default function UserDetails() {
   const { loggedUser } = useUsers();
+
   const { loadBeer } = useBeer();
   useEffect(() => {
     loadBeer();
   }, [loadBeer]);
+
   console.log(loggedUser);
   console.log(loggedUser?.probada);
+
   return (
     <>
       <li

@@ -5,10 +5,6 @@ import { Header } from '../header/header';
 
 jest.mock('../header/header');
 jest.mock('../router/router');
-jest.mock('../../types/take.id.tsx', () => ({
-  getUserIdFromLocalStorage: jest.fn().mockResolvedValue(''),
-  getUserTokenFromLocalStorage: jest.fn().mockResolvedValue(''),
-}));
 
 describe('Given App component', () => {
   describe('When we instantiate', () => {
