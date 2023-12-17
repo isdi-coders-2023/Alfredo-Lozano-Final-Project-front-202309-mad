@@ -34,8 +34,9 @@ export const registerThunk = createAsyncThunk<
 
 export const getUserByIdThunk = createAsyncThunk<
   User,
-  { userId: User['id']; repo: ApiRepoUsers }
->('getByID', async ({ userId, repo }) => {
+  { userId: string; repo: ApiRepoUsers }
+>('getByID', async (params) => {
+  const { userId, repo } = params;
   const result = await repo.getUserbyID(userId);
   return result;
 });

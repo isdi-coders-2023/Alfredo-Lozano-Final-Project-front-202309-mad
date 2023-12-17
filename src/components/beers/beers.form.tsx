@@ -1,5 +1,5 @@
 import { SyntheticEvent } from 'react';
-import { useBeer } from '../../hooks/use.beers';
+import { useBeers } from '../../hooks/use.beers';
 
 import style from './Beers.form.module.scss';
 import { useSelector } from 'react-redux';
@@ -7,7 +7,7 @@ import { RootState } from '../../store/store';
 
 export default function CreatePub() {
   const { loggedUser } = useSelector((state: RootState) => state.usersState);
-  const { createBeer } = useBeer();
+  const { createBeer } = useBeers();
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();

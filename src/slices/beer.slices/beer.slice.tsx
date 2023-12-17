@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Beer } from '../../models/beer.model';
-import { createBeerThunk, loadBeerThunk } from './beer.thunk';
+import { createBeerThunk, loadBeerThunks } from './beer.thunk';
 
-type LoginState = 'idle' | 'logging' | 'error';
+export type LoginState = 'idle' | 'logging' | 'error';
 
 type BeerState = {
   currentBeerItem: Beer | null;
@@ -38,7 +38,7 @@ const beersSlice = createSlice({
       }
     );
     builder.addCase(
-      loadBeerThunk.fulfilled,
+      loadBeerThunks.fulfilled,
       (state: BeerState, { payload }: PayloadAction<Beer[]>) => {
         state.beers = payload;
         state.beerState = 'idle';
@@ -51,12 +51,12 @@ const beersSlice = createSlice({
       return state;
     });
 
-    builder.addCase(loadBeerThunk.pending, (state: BeerState) => {
+    builder.addCase(loadBeerThunks.pending, (state: BeerState) => {
       state.beerState = 'logging';
       return state;
     });
 
-    builder.addCase(loadBeerThunk.rejected, (state: BeerState) => {
+    builder.addCase(loadBeerThunks.rejected, (state: BeerState) => {
       state.beerState = 'error';
       return state;
     });

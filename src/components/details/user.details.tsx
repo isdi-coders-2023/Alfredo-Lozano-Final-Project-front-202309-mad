@@ -1,13 +1,17 @@
 import { useEffect } from 'react';
-import { useBeer } from '../../hooks/use.beers';
+import { useBeer } from '../../hooks/use.beer';
 import { useUsers } from '../../hooks/use.users';
 import { Beer } from '../../models/beer.model';
 import BeerCard from '../cards/beers.cards';
 
 export default function UserDetails() {
-  const { loggedUser } = useUsers();
-
+  const { loggedUser, loadUserId } = useUsers();
   const { loadBeer } = useBeer();
+
+  useEffect(() => {
+    loadUserId();
+  }, [loadUserId]);
+
   useEffect(() => {
     loadBeer();
   }, [loadBeer]);
@@ -37,7 +41,7 @@ export default function UserDetails() {
           </div>
 
           <ul className="Beer-list">
-            {loggedUser!.probada.map((item: Beer) => (
+            {loggedUser?.probada.map((item: Beer) => (
               <BeerCard key={item.id} beer={item} />
             ))}
           </ul>

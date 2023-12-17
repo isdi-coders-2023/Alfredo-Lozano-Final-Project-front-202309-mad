@@ -1,11 +1,17 @@
-import { useBeer } from '../../hooks/use.beers';
+import { useEffect } from 'react';
+import { useBeer } from '../../hooks/use.beer';
 import { useUsers } from '../../hooks/use.users';
 import { addBeer } from '../../slices/user.slices/user.slice';
 // Import { makeImageURL } from '../../services/images';
 
 export default function BeerDetails() {
-  const { currentBeerItem } = useBeer();
+  const { currentBeerItem, loadBeer } = useBeer();
 
+  useEffect(() => {
+    loadBeer();
+  }, [loadBeer]);
+
+  console.log('path param', currentBeerItem);
   // Const desktopDetailBeerImg =
   //   currentBeerItem?.beerImg.publicId &&
   //   makeImageURL(currentBeerItem.beerImg.publicId, 550);

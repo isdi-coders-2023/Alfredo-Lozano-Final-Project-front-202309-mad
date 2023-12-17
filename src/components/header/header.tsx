@@ -1,22 +1,20 @@
 import { UserButtons } from '../Buttons/user.button';
 import './Header.module.scss';
+import smalLogo from '/smalLogo.png';
+import smallbeerlogo from '/smallbeerlogo.svg';
 
 export function Header() {
   return (
     <header>
       <div className="header">
+        <img src={smalLogo} alt="beer logo front" className="smallbeer" />
         <img
-          src="./smallbeerlogo.svg"
-          alt="beer logo front"
-          className="smallbeer"
-        />
-        <img
-          src="./smalLogo.png"
-          alt="small de beer logo "
+          src={smallbeerlogo}
+          alt="small de beer logo"
           className="smallogo"
         />
       </div>
-      <UserButtons></UserButtons>
+      <UserButtons />
     </header>
   );
 }

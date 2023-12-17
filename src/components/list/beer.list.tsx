@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { useBeer } from '../../hooks/use.beers';
+import { useBeers } from '../../hooks/use.beers';
 import { Beer } from '../../models/beer.model';
 import BeerCard from '../cards/beers.cards';
 
 export default function BeerList() {
-  const { loadBeer, beers } = useBeer();
+  const { loadBeer, beers } = useBeers();
 
   useEffect(() => {
     loadBeer();

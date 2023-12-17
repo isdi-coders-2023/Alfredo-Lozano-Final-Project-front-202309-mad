@@ -13,7 +13,16 @@ export const createBeerThunk = createAsyncThunk<
   return result;
 });
 
-export const loadBeerThunk = createAsyncThunk<Beer[], ApiRepoBeers>(
+export const loadBeerThunk = createAsyncThunk<
+  Beer,
+  { beerId: string; repo: ApiRepoBeers }
+>('load', async (params) => {
+  const { beerId, repo } = params;
+  const beers = await repo.loadBeerbyID(beerId);
+  return beers;
+});
+
+export const loadBeerThunks = createAsyncThunk<Beer[], ApiRepoBeers>(
   'load',
   async (repo) => {
     const beers = await repo.loadBeers();

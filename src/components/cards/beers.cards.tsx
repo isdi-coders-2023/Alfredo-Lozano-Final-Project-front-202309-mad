@@ -1,18 +1,24 @@
 import { Link } from 'react-router-dom';
-import { useBeer } from '../../hooks/use.beers';
+import { useBeers } from '../../hooks/use.beers';
 import { Beer } from '../../models/beer.model';
-import { SyntheticEvent } from 'react';
+import { makeImageURL } from '../../services/images';
+import { useEffect } from 'react';
 
 type Props = {
   beer: Beer;
 };
 
-export default function BeerCard({ beer }: Props, event: SyntheticEvent) {
-  event.preventDefault();
-  const { handleBeerDetails } = useBeer();
-  console.log(beer);
+export default function BeerCard({ beer }: Props) {
+  const { handleBeerDetails, loadBeer } = useBeers();
+
+  useEffect(() => {
+    loadBeer();
+  }, [loadBeer]);
+
   // Const mobileBeerImg =
   //   beer?.beerImg.publicId && makeImageURL(beer.beerImg.publicId, 160);
+  const despocktBeerImg =
+    beer?.beerImg.publicId && makeImageURL(beer?.beerImg.publicId, 160);
 
   return (
     <li
@@ -26,7 +32,7 @@ export default function BeerCard({ beer }: Props, event: SyntheticEvent) {
           style={{ textDecoration: 'none', color: 'inherit' }}
         >
           <img
-            src={beer.beerImg.url}
+            src={despocktBeerImg}
             alt={`movil beer image de ${beer.name}`}
             onClick={() => handleBeerDetails(beer)}
           />

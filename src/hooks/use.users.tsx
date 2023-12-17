@@ -7,8 +7,9 @@ import { Storage } from '../services/storage';
 import * as ac from '../slices/user.slices/user.slice';
 import { getUserByIdThunk, loginThunk } from '../slices/user.slices/user.thunk';
 import { useSelector } from 'react-redux';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Beer } from '../models/beer.model';
+import { useParams } from 'react-router-dom';
 
 export function useUsers() {
   const userStore = new Storage<{ token: string; id: string }>('user');
@@ -18,6 +19,13 @@ export function useUsers() {
 
   const dispatch = useDispatch<AppDispatch>();
   const repo = useMemo(() => new ApiRepoUsers(), []);
+  const { userId } = useParams();
+
+  const loadUserId = useCallback(async () => {
+    if (userId) {
+      dispatch(getUserByIdThunk({ userId, repo }));
+    }
+  }, [dispatch, repo]);
 
   const register = (newUser: Partial<User>) => {
     repo.registerUser(newUser);
@@ -58,6 +66,7 @@ export function useUsers() {
   return {
     user,
     loggedUser,
+    loadUserId,
     addBeer,
     logoutUser,
     login,
