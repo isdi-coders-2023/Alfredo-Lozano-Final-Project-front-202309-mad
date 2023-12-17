@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import { Pubs } from '../../models/pub.model';
+import { SyntheticEvent } from 'react';
 
 type Props = {
   pub: Pubs;
 };
 
-export default function PubCard({ pub }: Props) {
+export default function PubCard({ pub }: Props, event: SyntheticEvent) {
+  event.preventDefault();
   return (
     <li
       className="pub-card"

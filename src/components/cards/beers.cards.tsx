@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useBeer } from '../../hooks/use.beers';
 import { Beer } from '../../models/beer.model';
+import { SyntheticEvent } from 'react';
 
 type Props = {
   beer: Beer;
 };
 
-export default function BeerCard({ beer }: Props) {
+export default function BeerCard({ beer }: Props, event: SyntheticEvent) {
+  event.preventDefault();
   const { handleBeerDetails } = useBeer();
   console.log(beer);
   // Const mobileBeerImg =
