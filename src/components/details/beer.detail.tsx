@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useBeer } from '../../hooks/use.beer';
 import { useUsers } from '../../hooks/use.users';
 import { addBeer } from '../../slices/user.slices/user.slice';
+import style from './Beer.details.module.scss';
 // Import { makeImageURL } from '../../services/images';
 
 export default function BeerDetails() {
@@ -22,39 +23,30 @@ export default function BeerDetails() {
   };
 
   return (
-    <li
-      className="beer-card"
-      style={{ textDecoration: 'none', color: 'inherit' }}
-    >
-      <div className="card-container">
-        {/* <img src={mobileBeerImg} alt={`movil beer image de ${beer.name}`} /> */}
-        <img
-          src={currentBeerItem?.beerImg.url}
-          alt={`movil beer image de ${currentBeerItem!.name}`}
-        />
-        <div className="card-info-container">
-          <div className="card-name-container">
+    <div className={style.main}>
+      <h2 className="main-title"> Details </h2>
+
+      <div className={style.details}>
+        <img src={currentBeerItem!.beerImg.url} alt="image"></img>
+        <ul>
+          <li>
+            NAME: <span>{currentBeerItem!.name}</span>
+          </li>
+          <li>
+            BREWER: <span>{currentBeerItem!.brewer}</span>
+          </li>
+          <li>
+            STYLE: <span>{currentBeerItem!.style}</span>
+          </li>
+          <li>
+            ALCOHOL: <span>{currentBeerItem!.alcohol}</span>
+          </li>
+          <button onClick={handleAddBeer} className={style.button}>
             {' '}
-            name: <p className="card-name">{currentBeerItem!.name} </p>
-          </div>
-          <div className="card-direction-container">
-            {' '}
-            brewer:
-            <p className="card-direction">{currentBeerItem!.brewer}</p>
-          </div>
-          <div className="card-owner-container">
-            {' '}
-            style:
-            <p className="card-owner">{currentBeerItem!.style}</p>
-          </div>
-          <div className="card-beers-container">
-            {' '}
-            alcohol:
-            <p className="card-beers">{currentBeerItem!.alcohol}</p>
-          </div>
-        </div>
-        <button onClick={handleAddBeer}>❤️</button>
+            ❤️
+          </button>
+        </ul>
       </div>
-    </li>
+    </div>
   );
 }

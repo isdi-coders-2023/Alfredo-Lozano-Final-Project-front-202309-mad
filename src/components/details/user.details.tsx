@@ -1,20 +1,14 @@
 import { useEffect } from 'react';
-import { useBeer } from '../../hooks/use.beer';
 import { useUsers } from '../../hooks/use.users';
 import { Beer } from '../../models/beer.model';
 import BeerCard from '../cards/beers.cards';
 
 export default function UserDetails() {
   const { loggedUser, loadUserId } = useUsers();
-  const { loadBeer } = useBeer();
 
   useEffect(() => {
     loadUserId();
   }, [loadUserId]);
-
-  useEffect(() => {
-    loadBeer();
-  }, [loadBeer]);
 
   console.log(loggedUser);
   console.log(loggedUser?.probada);
