@@ -72,26 +72,6 @@ describe('Given the AppRoutes component', () => {
       expect(element).toBeInTheDocument();
     });
   });
-  describe('When it is instantiate with a route addPub', () => {
-    const MockedComponentaddPub = jest.fn().mockReturnValue(<h2>Add Pub</h2>);
-    jest.mock('../pubs/pubs.form', () => MockedComponentaddPub);
-    let element: HTMLElement;
-    beforeEach(async () => {
-      await act(async () =>
-        render(
-          <MemoryRouter initialEntries={['/addPub']} initialIndex={0}>
-            <Router></Router>
-          </MemoryRouter>
-        )
-      );
-      element = screen.getByText('Add Pub');
-    });
-    test('Then it should render RegisterPage', () => {
-      expect(MockedComponentaddPub).toHaveBeenCalled();
-      expect(element).toBeInTheDocument();
-    });
-  });
-
   describe('When it is instantiate with a route addBeer', () => {
     const MockedComponentaddBeer = jest
       .fn()
@@ -110,25 +90,6 @@ describe('Given the AppRoutes component', () => {
     });
     test('Then it should render RegisterPage', () => {
       expect(MockedComponentaddBeer).toHaveBeenCalled();
-      expect(element).toBeInTheDocument();
-    });
-  });
-  describe('When it is instantiate with a route pubs', () => {
-    const MockedComponentaddPubList = jest.fn().mockReturnValue(<h2>Pubs</h2>);
-    jest.mock('../list/pub.list', () => MockedComponentaddPubList);
-    let element: HTMLElement;
-    beforeEach(async () => {
-      await act(async () =>
-        render(
-          <MemoryRouter initialEntries={['/pubs']} initialIndex={0}>
-            <Router></Router>
-          </MemoryRouter>
-        )
-      );
-      element = screen.getByText('Pubs');
-    });
-    test('Then it should render RegisterPage', () => {
-      expect(MockedComponentaddPubList).toHaveBeenCalled();
       expect(element).toBeInTheDocument();
     });
   });

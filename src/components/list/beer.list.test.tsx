@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { appStore } from '../../store/store';
 import { MemoryRouter as Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { useBeersç } from '../../hooks/use.beers';
+import { useBeers } from '../../hooks/use.beers';
 
 // Move jest.mock outside the test function
 jest.mock('../../hooks/use.beers', () => ({
@@ -25,5 +25,5 @@ test('should load beers on mount', () => {
 
   const beerList = screen.getByRole('list');
   expect(beerList).toBeInTheDocument();
-  expect(useBeersç().loadBeer).toHaveBeenCalled();
+  expect(useBeers().loadBeer).toHaveBeenCalled();
 });

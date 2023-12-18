@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useDispatch } from 'react-redux';
-import { useBeersç } from './use.beers';
+import { useBeers } from './use.beers';
 
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
@@ -14,7 +14,7 @@ describe('Given usePubs Hook', () => {
   const mockNewBeer = {} as unknown as FormData;
 
   const TestComponent = () => {
-    const { createBeer } = useBeersç();
+    const { createBeer } = useBeers();
 
     return (
       <>

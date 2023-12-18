@@ -5,7 +5,7 @@ import style from './Beers.form.module.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 
-export default function CreatePub() {
+export default function CreateBeer() {
   const { loggedUser } = useSelector((state: RootState) => state.usersState);
   const { createBeer } = useBeers();
 
