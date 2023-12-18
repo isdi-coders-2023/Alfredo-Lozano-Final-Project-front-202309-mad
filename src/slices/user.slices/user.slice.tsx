@@ -33,10 +33,6 @@ const userSlice = createSlice({
       state.loggedUser = payload;
       return state;
     },
-    addBeer(state: UserState, { payload }) {
-      state.user = payload.id;
-      return state;
-    },
   },
   extraReducers(builder) {
     builder.addCase(
@@ -44,8 +40,6 @@ const userSlice = createSlice({
       (state: UserState, { payload }: PayloadAction<LoginResponse>) => {
         state.loggedUser = payload.user;
         state.token = payload.token;
-        state.userState = 'idle';
-        return state;
       }
     );
 
@@ -74,6 +68,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { logout, setCurrentUser, addBeer } = userSlice.actions;
+export const { logout, setCurrentUser } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -7,12 +7,13 @@ export function Header() {
   return (
     <header>
       <div className="header">
-        <img src={smalLogo} alt="beer logo front" className="smallbeer" />
         <img
           src={smallbeerlogo}
           alt="small de beer logo"
           className="smallogo"
         />
+
+        <img src={smalLogo} alt="beer logo front" className="smallbeer" />
       </div>
       <UserButtons />
     </header>

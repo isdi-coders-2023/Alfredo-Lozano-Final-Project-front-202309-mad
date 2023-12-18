@@ -8,17 +8,17 @@ export const createBeerThunk = createAsyncThunk<
     newBeer: FormData;
     repo: ApiRepoBeers;
   }
->('register', async ({ newBeer, repo }) => {
+>('create', async ({ newBeer, repo }) => {
   const result = await repo.createBeer(newBeer);
   return result;
 });
 
-export const loadBeerThunk = createAsyncThunk<
+export const loadBeerByIdThunk = createAsyncThunk<
   Beer,
   { beerId: string; repo: ApiRepoBeers }
->('load', async (params) => {
+>('loadbyid', async (params) => {
   const { beerId, repo } = params;
-  const beers = await repo.loadBeerbyID(beerId);
+  const beers = await repo.loadBeerbyId(beerId);
   return beers;
 });
 

@@ -1,5 +1,5 @@
 import { ImgData } from '../types/img.data';
-import { Pubs } from './pub.model';
+
 import { User } from './user.model';
 
 export type Beer = {
@@ -10,5 +10,4 @@ export type Beer = {
   alcohol: string;
   beerImg: ImgData;
   autor: User;
-  pubs: Pubs;
 };

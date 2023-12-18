@@ -20,10 +20,7 @@ const beersSlice = createSlice({
   name: 'beers',
   initialState,
   reducers: {
-    setCurrentBeerItem(
-      state: BeerState,
-      { payload }: PayloadAction<Beer | null>
-    ) {
+    setCurrentBeerItem(state: BeerState, { payload }: PayloadAction<Beer>) {
       state.currentBeerItem = payload;
       return state;
     },
@@ -41,7 +38,6 @@ const beersSlice = createSlice({
       loadBeerThunks.fulfilled,
       (state: BeerState, { payload }: PayloadAction<Beer[]>) => {
         state.beers = payload;
-        state.beerState = 'idle';
         return state;
       }
     );

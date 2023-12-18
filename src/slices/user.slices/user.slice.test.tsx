@@ -38,6 +38,7 @@ describe('Given the users slice reducer', () => {
         userState: 'idle',
         token: '',
         user: [],
+        probadas: [],
       };
       const action: PayloadAction<LoginResponse> = {
         type: 'loginThunk/fulfilled',
@@ -76,6 +77,7 @@ describe('Given the users slice reducer', () => {
       userState: 'idle',
       token: '',
       user: [],
+      probadas: [],
     };
     const payload = null;
 

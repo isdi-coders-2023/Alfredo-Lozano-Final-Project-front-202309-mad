@@ -1,46 +1,37 @@
-import { useEffect } from 'react';
 import { useUsers } from '../../hooks/use.users';
 import { Beer } from '../../models/beer.model';
 import BeerCard from '../cards/beers.cards';
+import style from './Beer.details.module.scss';
 
 export default function UserDetails() {
-  const { loggedUser, loadUserId } = useUsers();
-
-  useEffect(() => {
-    loadUserId();
-  }, [loadUserId]);
-
-  console.log(loggedUser);
-  console.log(loggedUser?.probada);
+  const { loggedUser } = useUsers();
 
   return (
     <>
-      <li
-        className="User-card"
-        style={{ textDecoration: 'none', color: 'inherit' }}
-      >
-        <div className="card-container"></div>
-        <div className="card-info-container">
-          <div className="card-name-container">
-            name: <p className="card-name">{loggedUser!.name}</p>
-          </div>
-          <div className="card-name-container">
-            surname: <p className="card-name">{loggedUser!.surname}</p>
-          </div>
-          <div className="card-name-container">
-            age: <p className="card-name">{loggedUser!.age}</p>
-          </div>
-          <div className="card-name-container">
-            userName: <p className="card-name">{loggedUser!.userName}</p>
-          </div>
-
-          <ul className="Beer-list">
-            {loggedUser?.probada.map((item: Beer) => (
-              <BeerCard key={item.id} beer={item} />
-            ))}
+      <div className={style.main}>
+        <h2 className="main-title"> Hola {loggedUser?.userName}</h2>
+        <div className={style.details}>
+          <ul>
+            <li>
+              NAME: <span>{loggedUser!.name}</span>
+            </li>
+            <li>
+              SURNAME: <span>{loggedUser!.surname}</span>
+            </li>
+            <li>
+              EMAIL: <span>{loggedUser!.email}</span>
+            </li>
+            <li>
+              EDAD: <span>{loggedUser!.age}</span>
+            </li>
           </ul>
         </div>
-      </li>
+      </div>
+      <ul className="Beer-list">
+        {loggedUser!.probada.map((item: Beer) => (
+          <BeerCard key={item.id} beer={item} />
+        ))}
+      </ul>
     </>
   );
 }

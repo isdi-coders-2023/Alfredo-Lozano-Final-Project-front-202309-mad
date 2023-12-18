@@ -3,7 +3,6 @@ import { LoginResponse } from '../../types/login.user';
 import { User, UserLogin } from '../../models/user.model';
 import { ApiRepoUsers } from '../../services/users/api.repo.users';
 import { Storage } from '../../services/storage';
-import { Beer } from '../../models/beer.model';
 
 export const loginThunk = createAsyncThunk<
   LoginResponse,
@@ -43,8 +42,16 @@ export const getUserByIdThunk = createAsyncThunk<
 
 export const addBeertoTasteThunk = createAsyncThunk<
   User,
-  { beer: Beer; repo: ApiRepoUsers }
+  { beer: string; repo: ApiRepoUsers }
 >('addBeer', async ({ beer, repo }) => {
   const result = await repo.addBeertoTaste(beer);
+  return result;
+});
+
+export const delBeertoTasteThunk = createAsyncThunk<
+  User,
+  { beer: string; repo: ApiRepoUsers }
+>('addBeer', async ({ beer, repo }) => {
+  const result = await repo.delBeertoTaste(beer);
   return result;
 });

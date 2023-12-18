@@ -47,12 +47,27 @@ export class ApiRepoUsers {
     return response.json();
   }
 
-  async addBeertoTaste(beer: Beer): Promise<User> {
-    const url = this.apiUrl + 'addBeer/' + beer.id;
+  async addBeertoTaste(beer: Beer['id']): Promise<User> {
+    const url = this.apiUrl + 'addBeer/' + beer;
+    const usertoken = JSON.parse(this.userToken!);
     const response = await fetch(url, {
       method: 'PATCH',
       headers: {
-        Authorization: 'Bearer ' + this.userToken,
+        Authorization: 'Bearer ' + usertoken.token,
+      },
+    });
+    if (!response.ok)
+      throw new Error(response.status + ' ' + response.statusText);
+    return response.json();
+  }
+
+  async delBeertoTaste(beer: Beer['id']): Promise<User> {
+    const url = this.apiUrl + 'delBeer/' + beer;
+    const usertoken = JSON.parse(this.userToken!);
+    const response = await fetch(url, {
+      method: 'PATCH',
+      headers: {
+        Authorization: 'Bearer ' + usertoken.token,
       },
     });
     if (!response.ok)

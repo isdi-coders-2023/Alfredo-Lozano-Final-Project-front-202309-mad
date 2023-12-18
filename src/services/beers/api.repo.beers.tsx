@@ -37,7 +37,7 @@ export class ApiRepoBeers {
     return response.json();
   }
 
-  async loadBeerbyID(_beerId: Beer['id']): Promise<Beer> {
+  async loadBeerbyId(_beerId: Beer['id']): Promise<Beer> {
     const beerID = _beerId;
     const response = await fetch(`http://localhost:1969/beer/${beerID}`);
     if (!response.ok)

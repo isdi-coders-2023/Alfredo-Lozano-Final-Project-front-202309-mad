@@ -16,7 +16,7 @@ const mockNewUser = {} as unknown as Partial<User>;
 
 describe('Given useUsers Hook', () => {
   const TestComponent = () => {
-    const { logoutUser, login, register, makeLogOut, getUserByID } = useUsers();
+    const { logoutUser, login, register, makeLogOut } = useUsers();
 
     return (
       <>
@@ -24,7 +24,6 @@ describe('Given useUsers Hook', () => {
         <button onClick={() => login(mockLoginUser)}> </button>
         <button onClick={() => register(mockNewUser)}> </button>
         <button onClick={() => logoutUser()}> </button>
-        <button onClick={() => getUserByID()}> </button>
       </>
     );
   };

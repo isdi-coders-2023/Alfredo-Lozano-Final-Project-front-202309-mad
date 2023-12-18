@@ -3,6 +3,8 @@ import { ApiRepoBeers } from '../services/beers/api.repo.beers';
 import { AppDispatch, RootState } from '../store/store';
 import { useCallback, useMemo } from 'react';
 import { loadBeerThunks } from '../slices/beer.slices/beer.thunk';
+import { useParams } from 'react-router-dom';
+import { loadBeerByIdThunk } from '../slices/beer.slices/beer.thunk';
 import { Beer } from '../models/beer.model';
 import { setCurrentBeerItem } from '../slices/beer.slices/beer.slice';
 
@@ -20,6 +22,14 @@ export function useBeers() {
     dispatch(loadBeerThunks(repo));
   }, [dispatch, repo]);
 
+  const { beerId } = useParams();
+
+  const loadBeerById = useCallback(async () => {
+    if (beerId) {
+      dispatch(loadBeerByIdThunk({ beerId, repo }));
+    }
+  }, [dispatch, repo]);
+
   const handleBeerDetails = async (beer: Beer) => {
     dispatch(setCurrentBeerItem(beer));
   };
@@ -29,7 +39,8 @@ export function useBeers() {
     currentBeerItem,
     loadBeer,
     dispatch,
-    createBeer,
+    loadBeerById,
     handleBeerDetails,
+    createBeer,
   };
 }

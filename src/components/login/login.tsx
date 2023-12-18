@@ -67,7 +67,7 @@ export default function Login() {
       {hasLogin && (
         <div>
           <p>Login correcto</p>
-          <Link to={'/user/' + currentUserItem!.id}>
+          <Link to={'/user'}>
             <button
               type="button"
               onClick={() => handleUserDetails(currentUserItem!)}

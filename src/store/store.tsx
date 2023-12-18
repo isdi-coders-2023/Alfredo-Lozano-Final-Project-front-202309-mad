@@ -6,7 +6,6 @@ import beersReducer from '../slices/beer.slices/beer.slice';
 export const appStore = configureStore({
   reducer: {
     beerState: beersReducer,
-
     usersState: userReducer,
   },
 });
