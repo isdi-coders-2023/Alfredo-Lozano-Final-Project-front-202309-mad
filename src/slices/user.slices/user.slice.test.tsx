@@ -1,7 +1,7 @@
 import { User } from '../../models/user.model';
 import { ApiRepoUsers } from '../../services/users/api.repo.users';
 import { appStore } from '../../store/store';
-import userSlice, { logout } from './user.slice';
+import userSlice, { logout, setCurrentUser } from './user.slice';
 import { loginThunk, registerThunk } from './user.thunk';
 import { Storage } from '../../services/storage';
 import { UserState } from './user.slice';
@@ -38,7 +38,6 @@ describe('Given the users slice reducer', () => {
         userState: 'idle',
         token: '',
         user: [],
-        probadas: [],
       };
       const action: PayloadAction<LoginResponse> = {
         type: 'loginThunk/fulfilled',
@@ -49,7 +48,8 @@ describe('Given the users slice reducer', () => {
 
       expect(newState.token).toEqual(payload.token);
       expect(newState.userState).toEqual('idle');
-      expect(newState.loggedUser).toEqual(newUser);
+      expect(newState.loggedUser).toEqual(payload.user);
+      expect(newState.token).toEqual(payload.token);
     });
     test('Then it should dispatch the loginUserAsync', () => {
       appStore.dispatch(
@@ -70,6 +70,11 @@ describe('Given the users slice reducer', () => {
     expect(state.loggedUser).toBeNull();
     expect(state.token).toBe('');
     expect(state.userState).toBe('idle');
+    test('should set loggedUser property when payload is not null', () => {
+      appStore.dispatch(setCurrentUser(user));
+      const state = appStore.getState().usersState;
+      expect(state.loggedUser).toEqual(user);
+    });
   });
   test('should set loggedUser state to payload from getUserByIdThunk', () => {
     const state: UserState = {
@@ -77,7 +82,6 @@ describe('Given the users slice reducer', () => {
       userState: 'idle',
       token: '',
       user: [],
-      probadas: [],
     };
     const payload = null;
 

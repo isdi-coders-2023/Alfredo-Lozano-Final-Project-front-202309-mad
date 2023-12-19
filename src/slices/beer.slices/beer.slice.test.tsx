@@ -9,7 +9,7 @@ const repo: ApiRepoBeers = {
   createBeer: jest.fn(),
   loadBeers: jest.fn(),
 } as unknown as ApiRepoBeers;
-const payloadMock = {} as Beer | null;
+const payloadMock = {} as Beer;
 
 describe('Given the users slice reducer', () => {
   describe('when createBeerThunk.fulfilled action is dispatched', () => {
@@ -24,6 +24,9 @@ describe('Given the users slice reducer', () => {
       const newState = reducer(initialState, action);
       expect(newState.currentBeerItem).toEqual(payloadMock);
     });
+    const action = loadBeerThunks.pending('pending', repo);
+    const newState = reducer(initialState, action);
+    expect(newState.beerState).toBe('logging');
   });
 
   describe('When it is instantiated correctly', () => {
@@ -56,10 +59,15 @@ describe('Given the users slice reducer', () => {
       createBeer: jest.fn().mockRejectedValueOnce(new Error('Login failed')),
     } as unknown as ApiRepoBeers;
 
-    test('should set RegisterState to error when user fails to log in', async () => {
+    test('should set beerState to error when createBeerThunk fails', async () => {
       await appStore.dispatch(createBeerThunk({ newBeer, repo }));
-      const state = appStore.getState().usersState;
-      expect(state.userState).toBe('error');
+      const state = appStore.getState().beerState.beerState;
+      expect(state).toBe('error');
+    });
+    test('should set beerState to error when loadBeer fails', async () => {
+      await appStore.dispatch(loadBeerThunks(repo));
+      const state = appStore.getState().beerState.beerState;
+      expect(state).toBe('error');
     });
   });
 });

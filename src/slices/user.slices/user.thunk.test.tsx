@@ -1,6 +1,7 @@
 import { ApiRepoUsers } from '../../services/users/api.repo.users';
 import {
   addBeertoTasteThunk,
+  delBeertoTasteThunk,
   getUserByIdThunk,
   loginThunk,
   registerThunk,
@@ -8,7 +9,6 @@ import {
 import { Storage } from '../../services/storage';
 import { appStore } from '../../store/store';
 import { UserLogin } from '../../models/user.model';
-import { Beer } from '../../models/beer.model';
 
 describe('Given...', () => {
   describe('When...', () => {
@@ -45,16 +45,7 @@ describe('Given...', () => {
     });
 
     test('Then add beer should.. ', async () => {
-      const beer = {
-        id: '1',
-        name: 'Beer 1',
-        brewer: 'Brewer 1',
-        style: 'Style 1',
-        alcohol: '5%',
-        beerImg: {},
-        autor: {},
-        pubs: {},
-      } as unknown as Beer;
+      const beer = 'id';
       const data = {
         repo: {
           addBeertoTaste: jest.fn().mockResolvedValue({}),
@@ -63,6 +54,17 @@ describe('Given...', () => {
       };
       await appStore.dispatch(addBeertoTasteThunk(data));
       expect(data.repo.addBeertoTaste).toHaveBeenCalled();
+    });
+    test('Then delBeer should.. ', async () => {
+      const beer = 'id';
+      const data = {
+        repo: {
+          delBeertoTaste: jest.fn().mockResolvedValue({}),
+        } as unknown as ApiRepoUsers,
+        beer,
+      };
+      await appStore.dispatch(delBeertoTasteThunk(data));
+      expect(data.repo.delBeertoTaste).toHaveBeenCalled();
     });
     test('Then getById it should ...', async () => {
       const userId = '123';

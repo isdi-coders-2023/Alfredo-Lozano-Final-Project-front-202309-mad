@@ -14,6 +14,7 @@ export function useBeers() {
   );
   const dispatch = useDispatch<AppDispatch>();
   const repo = useMemo(() => new ApiRepoBeers(), []);
+
   const createBeer = (newBeer: FormData) => {
     repo.createBeer(newBeer);
   };

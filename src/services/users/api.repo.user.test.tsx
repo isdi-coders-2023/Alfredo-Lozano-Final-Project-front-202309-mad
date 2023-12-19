@@ -1,4 +1,3 @@
-import { Beer } from '../../models/beer.model';
 import { User } from '../../models/user.model';
 import { ApiRepoUsers } from './api.repo.users';
 
@@ -6,7 +5,7 @@ const mockLogin = {
   email: 'test@example.com',
   password: 'password123',
 };
-const mockBeer = {} as unknown as Beer;
+const mockBeer = 'id:1';
 const mockRegister: Partial<User> = {
   id: '123',
   name: 'John',
@@ -55,8 +54,11 @@ describe('Given User ApiRepo class', () => {
       const result = await repo.addBeertoTaste(mockBeer);
       expect(result).toEqual([]);
     });
+    test('should deletea beer to users taste list', async () => {
+      const result = await repo.delBeertoTaste(mockBeer);
+      expect(result).toEqual([]);
+    });
   });
-
   describe('When we instantiate it and response is bad', () => {
     beforeEach(() => {
       global.fetch = jest.fn().mockResolvedValueOnce({
@@ -74,6 +76,9 @@ describe('Given User ApiRepo class', () => {
     });
     test('should throw an error when the server response is 404', async () => {
       await expect(repo.addBeertoTaste(mockBeer)).rejects.toThrow();
+    });
+    test('should throw an error', async () => {
+      await expect(repo.delBeertoTaste(mockBeer)).rejects.toThrow();
     });
   });
 });

@@ -4,6 +4,7 @@ import { ApiRepoBeers } from './api.repo.beers';
 const newBeer: FormData = {} as unknown as FormData;
 const mockUserID = '123';
 localStorage.setItem('user', JSON.stringify({ token: mockUserID }));
+const mockBeerId = '123';
 describe('Given User ApiRepo class', () => {
   describe('When we instantiate it and response is ok', () => {
     test('should send a POST request to the correct URL with the correct body and headers, and return the parsed response', async () => {
@@ -31,6 +32,18 @@ describe('Given User ApiRepo class', () => {
 
       expect(result).toEqual(expectedResponse);
     });
+    test('should fetch a beer by its ID and return it as a Beer object', async () => {
+      const expectedResponse: Beer = {} as unknown as Beer;
+      global.fetch = jest.fn().mockResolvedValueOnce({
+        ok: true,
+        json: jest.fn().mockResolvedValueOnce(expectedResponse),
+      });
+
+      const apiRepoBeers = new ApiRepoBeers();
+      const result = await apiRepoBeers.loadBeerbyId(mockBeerId);
+
+      expect(result).toEqual(expectedResponse);
+    });
   });
   describe('When we instantiate it and response is fail', () => {
     beforeEach(() => {
@@ -51,6 +64,18 @@ describe('Given User ApiRepo class', () => {
 
       const apiRepoBeers = new ApiRepoBeers();
       await expect(apiRepoBeers.loadBeers()).rejects.toThrow('404 Not Found');
+    });
+    test('should throw an error if the API returns a non-OK whenwe loadByID', async () => {
+      global.fetch = jest.fn().mockResolvedValueOnce({
+        ok: false,
+        status: 404,
+        statusText: 'Not Found',
+      });
+
+      const apiRepoBeers = new ApiRepoBeers();
+      await expect(apiRepoBeers.loadBeerbyId(mockBeerId)).rejects.toThrow(
+        '404 Not Found'
+      );
     });
   });
 });

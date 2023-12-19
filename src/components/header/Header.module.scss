@@ -1,18 +1,40 @@
 header {
-  margin: auto;
+  width: 1280px;
+  height: 159px;
+  flex-shrink: 0;
   background-color: #f3e9e9;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  flex-direction: column;
+  margin: 0.5rem;
+  border: 0.5rem;
+  padding: 0.5rem;
 
   .smallbeer {
     order: 1;
     padding: 1rem;
+    margin: 0.5rem;
+    border: 0.5rem;
   }
   .smallogo {
     margin: 1rem;
     margin-left: 5%;
     order: 2;
     height: 3rem;
+    margin: 0.5rem;
+    border: 0.5rem;
+  }
+  ._container_1xksc_1 {
+    background: gray;
+    border-radius: 1rem;
+    color: black;
+    height: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100px;
+    text-decoration: none;
   }
 }

@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { Header } from './header';
 
 describe('Header Component', () => {
-  test('should render the header component with two images and a UserButtons component', async () => {
+  test('should render the header component with two images and a UserButtons component', () => {
     render(
       <Provider store={appStore}>
         <MemoryRouter>
