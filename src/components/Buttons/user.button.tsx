@@ -33,6 +33,12 @@ export function UserButtons() {
               <button className={style.container}>Add Beer</button>
             </Link>
           )}
+          <Link to="/beers" className={style.container}>
+            <button className={style.container}>Beers</button>
+          </Link>
+          <Link to="/user" className={style.container}>
+            <button className={style.container}>User</button>
+          </Link>
           <Link to="/" className={style.container} onClick={logoutUser}>
             <button className={style.container}>Logout</button>
           </Link>
