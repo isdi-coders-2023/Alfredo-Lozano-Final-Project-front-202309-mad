@@ -48,12 +48,11 @@ export default function BeerDetails() {
             ALCOHOL: <span>{currentBeerItem!.alcohol}</span>
           </li>
 
-          {location.pathname !== `/details/${currentBeerItem!.id}` && (
-            <button onClick={handleAddBeer} className={style.button}>
-              {' '}
-              ❤️
-            </button>
-          )}
+          <button onClick={handleAddBeer} className={style.button}>
+            {' '}
+            ❤️
+          </button>
+
           {location.pathname === `/details/${currentBeerItem!.id}` && (
             <button onClick={handleDelBeer} className={style.button}>
               {' '}

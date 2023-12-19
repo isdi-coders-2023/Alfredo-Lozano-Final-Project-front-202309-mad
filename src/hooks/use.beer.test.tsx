@@ -1,55 +1,74 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useDispatch } from 'react-redux';
 import { useBeers } from './use.beers';
-import { RootState } from '../store/store';
+import { ApiRepoBeers } from '../services/beers/api.repo.beers';
+import { Beer } from '../models/beer.model';
+import { useDispatch } from 'react-redux';
 
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useDispatch: jest.fn().mockReturnValue(jest.fn()),
-  useSelector: jest
-    .fn()
-    .mockReturnValue((state: RootState) => state.beerState)
-    .mockReturnValue({
-      selectedValue: '',
-    }),
+  useSelector: jest.fn().mockReturnValue({
+    currentBeerItem: null,
+    beers: [],
+  }),
 }));
-const mockUserID = '123';
-localStorage.setItem('user', JSON.stringify({ token: mockUserID }));
+
+jest.mock('../services/beers/api.repo.beers', () => ({
+  ApiRepoBeers: jest.fn(),
+}));
+
 describe('Given useBeers Hook', () => {
-  const mockNewBeer = {} as unknown as FormData;
+  const mockNewBeer = {} as FormData;
 
   const TestComponent = () => {
-    const { createBeer, loadBeerById } = useBeers();
+    const { createBeer, loadBeerById, loadBeer, handleBeerDetails } =
+      useBeers();
 
     return (
       <>
-        <button onClick={() => createBeer(mockNewBeer)}>Create Beer</button>
-        <button onClick={() => loadBeerById()}>Load Beer</button>
+        <button onClick={() => createBeer(mockNewBeer)}></button>
+        <button onClick={() => loadBeerById()}></button>
+        <button onClick={() => loadBeer()}></button>
+        <button onClick={() => handleBeerDetails({} as Beer)}></button>
       </>
     );
   };
 
-  let button: HTMLElement;
+  let elements: HTMLElement[];
 
   beforeEach(() => {
-    const jsonMock = jest.fn().mockResolvedValue([]);
-    global.fetch = jest.fn().mockResolvedValueOnce({
-      ok: true,
-      json: jsonMock,
-    });
     render(<TestComponent />);
-    button = screen.getByText('Create Beer');
-    button = screen.getByText('Load Beer');
+    elements = screen.getAllByRole('button');
   });
-  describe('When the "Create Beer" button is clicked', () => {
-    test('Then useDispatch should have been called', async () => {
-      await userEvent.click(button);
+
+  describe('When we click button createBeer', () => {
+    test('Then the dispatch should have been called', async () => {
+      ApiRepoBeers.prototype.createBeer = jest.fn();
+      await userEvent.click(elements[0]);
       expect(useDispatch).toHaveBeenCalled();
     });
-    test('Then useDispatch should have been called', async () => {
-      await userEvent.click(button);
+  });
+
+  describe('When we click button loadBeerById', () => {
+    test('Then the dispatch should have been called', async () => {
+      ApiRepoBeers.prototype.loadBeerbyId = jest.fn();
+      await userEvent.click(elements[1]);
       expect(useDispatch).toHaveBeenCalled();
+    });
+  });
+
+  describe('When we click button loadBeer', () => {
+    test('Then the dispatch should have been called', async () => {
+      ApiRepoBeers.prototype.loadBeers = jest.fn();
+      await userEvent.click(elements[2]);
+      expect(useDispatch()).toHaveBeenCalled();
+    });
+  });
+  describe('When we click button loadBeer', () => {
+    test('Then the dispatch should have been called', async () => {
+      await userEvent.click(elements[3]);
+      expect(useDispatch()).toHaveBeenCalled();
     });
   });
 });

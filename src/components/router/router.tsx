@@ -6,7 +6,7 @@ const Login = lazy(() => import('../login/login'));
 const Register = lazy(() => import('../register/register'));
 const ErrorPage = lazy(() => import('../error/error'));
 const CreateBeer = lazy(() => import('../beers/beers.form'));
-const BeerDetails = lazy(() => import('../details/beer.detail'));
+const BeerDetails = lazy(() => import('../details/beer.details'));
 const UserDetails = lazy(() => import('../details/user.details'));
 
 export function Router() {

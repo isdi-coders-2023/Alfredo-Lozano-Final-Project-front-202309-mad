@@ -3,18 +3,15 @@ import { useUsers } from '../../hooks/use.users';
 import { UserLogin } from '../../models/user.model';
 import style from './Login.module.scss';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [hasLogin, setHasLogin] = useState(false);
-  const { login, handleUserDetails } = useUsers();
-  const { loggedUser: currentUserItem } = useSelector(
-    (state: RootState) => state.usersState
-  );
+  const { login } = useUsers();
 
-  const handleSubmit = (event: SyntheticEvent) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
     const element = event.target as HTMLFormElement;
     const loggedUser = {
@@ -37,10 +34,15 @@ export default function Login() {
         timer: 2500,
       });
     } else {
-      console.log(loggedUser);
-      login(loggedUser);
-      setHasLogin(true);
-      element.reset();
+      try {
+        console.log(loggedUser);
+        await login(loggedUser);
+        setHasLogin(true);
+        element.reset();
+        navigate('/beers');
+      } catch (error) {
+        console.error('Error during login:', error);
+      }
     }
   };
 
@@ -63,19 +65,6 @@ export default function Login() {
             <button type="submit">Sign In</button>
           </div>
         </form>
-      )}
-      {hasLogin && (
-        <div>
-          <p>Login correcto</p>
-          <Link to={'/user'}>
-            <button
-              type="button"
-              onClick={() => handleUserDetails(currentUserItem!)}
-            >
-              Continuar
-            </button>
-          </Link>
-        </div>
       )}
     </section>
   );

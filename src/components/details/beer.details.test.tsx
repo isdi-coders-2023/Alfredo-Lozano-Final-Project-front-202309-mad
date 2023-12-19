@@ -3,18 +3,28 @@ import { render, screen } from '@testing-library/react';
 import { appStore } from '../../store/store';
 import { Provider } from 'react-redux';
 import { MemoryRouter as Router } from 'react-router-dom';
-import UserDetails from './user.details';
+import BeerDetails from './beer.details';
+
+jest.mock('../../hooks/use.beers', () => ({
+  useBeers: jest.fn().mockReturnValue({
+    currentBeerItem: {
+      id: '1',
+      name: 'Beer 1',
+      brewer: 'Brewer 1',
+      style: 'Style 1',
+      alcohol: '5%',
+      beerImg: {
+        publicId: 'image1',
+      },
+    },
+    loadBeerById: jest.fn(),
+  }),
+}));
 
 jest.mock('../../hooks/use.users', () => ({
   useUsers: jest.fn().mockReturnValue({
-    loggedUser: {
-      userName: 'JohnDoe',
-      name: 'John',
-      surname: 'Doe',
-      email: 'johndoe@example.com',
-      age: 25,
-      probada: [],
-    },
+    addBeer: jest.fn(),
+    delBeer: jest.fn(),
   }),
 }));
 
@@ -23,7 +33,7 @@ describe('Given Details Component', () => {
     render(
       <Router>
         <Provider store={appStore}>
-          <UserDetails></UserDetails>
+          <BeerDetails></BeerDetails>
         </Provider>
       </Router>
     );
@@ -31,6 +41,8 @@ describe('Given Details Component', () => {
     test('Then should render correctly', () => {
       const roleElement = screen.getByText('NAME:');
       expect(roleElement).toBeInTheDocument();
+      const addBeerButton = screen.getByRole('button');
+      expect(addBeerButton).toBeInTheDocument();
     });
   });
 });
