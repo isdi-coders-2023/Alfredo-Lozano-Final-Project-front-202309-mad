@@ -1,7 +1,9 @@
+import style from './Error.module.scss';
+
 export default function ErrorPage() {
   return (
     <>
-      <p>404 ERROR NOT FOUND</p>
+      <p className={style.error}>404 ERROR NOT FOUND</p>
     </>
   );
 }

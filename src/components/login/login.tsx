@@ -47,10 +47,10 @@ export default function Login() {
   };
 
   return (
-    <section className={style.form}>
+    <section className={style.main}>
       <h2 className={style.h2}>Login</h2>
       {!hasLogin && (
-        <form onSubmit={handleSubmit} aria-label="form">
+        <form onSubmit={handleSubmit} aria-label="form" className={style.form}>
           <div className={style.email}>
             <label htmlFor="email" className="email">
               Email:{' '}
@@ -61,8 +61,10 @@ export default function Login() {
             <label htmlFor="password">Password: </label>
             <input type="text" id="password" name="password" />
           </div>
-          <div className={style.submit}>
-            <button type="submit">Sign In</button>
+          <div>
+            <button type="submit" className={style.submit}>
+              Sign In
+            </button>
           </div>
         </form>
       )}
