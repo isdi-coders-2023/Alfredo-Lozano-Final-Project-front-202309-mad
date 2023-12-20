@@ -37,3 +37,22 @@ describe('UserButtons Component', () => {
     expect(backButton).toBeInTheDocument();
   });
 });
+describe('UserButtons component when the user is loged', () => {
+  jest.mock('../../hooks/use.users', () => ({
+    useUsers: jest.fn().mockReturnValue({
+      loginWithToken: jest.fn(),
+    }),
+  }));
+  test('should render beers button when user logged in and on register page', () => {
+    render(
+      <Provider store={appStore}>
+        <Router>
+          <UserButtons />
+        </Router>
+      </Provider>
+    );
+
+    const BeerButon = screen.getByRole('button');
+    expect(BeerButon).toBeInTheDocument();
+  });
+});
