@@ -1,6 +1,7 @@
 import { SyntheticEvent } from 'react';
 import { useBeers } from '../../hooks/use.beers';
 import style from './Beers.form.module.scss';
+import { Link } from 'react-router-dom';
 
 export default function CreateBeer() {
   const { createBeer } = useBeers();
@@ -37,9 +38,11 @@ export default function CreateBeer() {
           <label htmlFor="beerImg">Beer Image: </label>
           <input type="file" id="beerImg" name="beerImg" required />
         </div>
-        <div className={style.submit}>
-          <button type="submit">Create</button>
-        </div>
+        <Link to="/beers" className={style.container}>
+          <div className={style.submit}>
+            <button type="submit">Create</button>
+          </div>
+        </Link>
       </form>
     </>
   );

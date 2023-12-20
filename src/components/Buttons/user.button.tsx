@@ -12,35 +12,36 @@ export function UserButtons() {
   const location = useLocation();
   const registerLink = (
     <Link to="/register">
-      <button className={style.container}>Register</button>
+      <button className={style.route}>Register</button>
     </Link>
   );
   const homeLink = (
     <Link to="/home">
-      <button className={style.container}>Back</button>
+      <button className={style.route}>Back</button>
     </Link>
   );
 
   return (
-    <section className={style.container}>
+    <section className={style.section}>
       {!currentUserItem && location.pathname === '/' && registerLink}
       {!currentUserItem && location.pathname === '/home' && registerLink}
       {!currentUserItem && location.pathname === '/register' && homeLink}
+      {!currentUserItem && location.pathname === '/*' && homeLink}
       {currentUserItem && (
         <>
           {location.pathname !== '/addBeer' && (
             <Link to="/addBeer" className={style.container}>
-              <button className={style.container}>Add Beer</button>
+              <button className={style.route}>Create</button>
             </Link>
           )}
           <Link to="/beers" className={style.container}>
-            <button className={style.container}>Beers</button>
+            <button className={style.route}>Beers</button>
           </Link>
           <Link to="/user" className={style.container}>
-            <button className={style.container}>User</button>
+            <button className={style.route}>User</button>
           </Link>
           <Link to="/" className={style.container} onClick={logoutUser}>
-            <button className={style.container}>Logout</button>
+            <button className={style.route}>Logout</button>
           </Link>
         </>
       )}
