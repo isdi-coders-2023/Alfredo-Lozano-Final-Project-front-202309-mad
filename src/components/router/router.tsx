@@ -8,6 +8,7 @@ const ErrorPage = lazy(() => import('../error/error'));
 const CreateBeer = lazy(() => import('../beers/beers.form'));
 const BeerDetails = lazy(() => import('../details/beer.details'));
 const UserDetails = lazy(() => import('../details/user.details'));
+const Home = lazy(() => import('../home/home'));
 
 export function Router() {
   return (
@@ -15,7 +16,7 @@ export function Router() {
       <Suspense>
         <Routes>
           <Route path="" element={<Login />} />
-          <Route path="/home" element={<Login />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/addBeer" element={<CreateBeer />} />
           <Route path="/beers" element={<BeerList />} />
