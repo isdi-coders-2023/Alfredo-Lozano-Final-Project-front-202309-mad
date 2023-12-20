@@ -4,6 +4,7 @@ import {
   delBeertoTasteThunk,
   getUserByIdThunk,
   loginThunk,
+  loginTokenThunk,
   registerThunk,
 } from './user.thunk';
 import { Storage } from '../../services/storage';
@@ -41,6 +42,12 @@ describe('Given...', () => {
     test('Then it should ...', async () => {
       const data = { ...sharedData, loginUser: {} as UserLogin };
       await appStore.dispatch(loginThunk(data));
+      expect(data.repo.login).toHaveBeenCalled();
+    });
+
+    test('Then it should dispatch loginTokenThunk and update user store', async () => {
+      const data = { ...sharedData, token: '' };
+      await appStore.dispatch(loginTokenThunk(data));
       expect(data.repo.login).toHaveBeenCalled();
     });
 

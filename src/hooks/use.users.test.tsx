@@ -72,7 +72,7 @@ describe('Given useUsers Hook', () => {
     });
   });
 
-  describe('When we click button loginWithToken', () => {
+  describe('When we click button register', () => {
     test('Then the dispacht should have been called', async () => {
       Storage.prototype.get = jest.fn().mockReturnValue('test');
       await userEvent.click(elements[2]);
