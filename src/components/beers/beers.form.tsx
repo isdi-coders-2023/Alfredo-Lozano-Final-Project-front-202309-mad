@@ -1,17 +1,19 @@
 import { SyntheticEvent } from 'react';
 import { useBeers } from '../../hooks/use.beers';
 import style from './Beers.form.module.scss';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateBeer() {
   const { createBeer } = useBeers();
+  const navigate = useNavigate();
 
-  const handleSubmit = (event: SyntheticEvent) => {
+  const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
     const formElement = event.target as HTMLFormElement;
     const newBeer = new FormData(formElement);
-    createBeer(newBeer);
+    await createBeer(newBeer);
     formElement.reset();
+    navigate('/beers');
   };
 
   return (
@@ -23,7 +25,7 @@ export default function CreateBeer() {
           <input type="text" id="name" name="name" required />
         </div>
         <div className={style.inputs}>
-          <label htmlFor="brewer">brewer: </label>
+          <label htmlFor="brewer">Brewer: </label>
           <input type="text" id="brewer" name="brewer" required />
         </div>
         <div className={style.inputs}>
@@ -38,11 +40,9 @@ export default function CreateBeer() {
           <label htmlFor="beerImg">Beer Image: </label>
           <input type="file" id="beerImg" name="beerImg" required />
         </div>
-        <Link to="/beers" className={style.container}>
-          <div className={style.submit}>
-            <button type="submit">Create</button>
-          </div>
-        </Link>
+        <div className={style.submit}>
+          <button type="submit">Create</button>
+        </div>
       </form>
     </>
   );

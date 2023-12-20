@@ -8,7 +8,7 @@ import * as ac from '../slices/user.slices/user.slice';
 import { useSelector } from 'react-redux';
 import { Beer } from '../models/beer.model';
 import { useMemo } from 'react';
-import { loginThunk } from '../slices/user.slices/user.thunk';
+import { loginThunk, loginTokenThunk } from '../slices/user.slices/user.thunk';
 
 export function useUsers() {
   const userStore = new Storage<{ token: string; id: string }>('user');
@@ -23,6 +23,14 @@ export function useUsers() {
 
   const login = (loginUser: UserLogin) => {
     dispatch(loginThunk({ loginUser, repo, userStore }));
+  };
+
+  const loginWithToken = () => {
+    const userStoreData = userStore.get();
+    if (userStoreData) {
+      const { token } = userStoreData;
+      dispatch(loginTokenThunk({ token, repo, userStore }));
+    }
   };
 
   const handleUserDetails = async (user: User) => {
@@ -53,6 +61,7 @@ export function useUsers() {
     delBeer,
     logoutUser,
     login,
+    loginWithToken,
     register,
     makeLogOut,
     handleUserDetails,

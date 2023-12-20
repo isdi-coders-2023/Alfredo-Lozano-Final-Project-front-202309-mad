@@ -4,7 +4,7 @@ import { appStore } from '../../store/store';
 import userSlice, { logout, setCurrentUser } from './user.slice';
 import { loginThunk, registerThunk } from './user.thunk';
 import { Storage } from '../../services/storage';
-import { UserState } from './user.slice';
+import userReducer, { UserState } from './user.slice';
 import { LoginResponse } from '../../types/login.user';
 import { PayloadAction } from '@reduxjs/toolkit';
 
@@ -26,6 +26,27 @@ describe('Given the users slice reducer', () => {
     test('Then it should dispatch the registerUser', () => {
       appStore.dispatch(registerThunk({ newUser, repo }));
       expect(repo.registerUser).toHaveBeenCalled();
+    });
+
+    test('Then the new state will be returned ', () => {
+      const action = {
+        type: 'loginWithToken/fulfilled',
+        payload: { user: 'test user', token: 'token' },
+      };
+      const state: UserState = {} as UserState;
+      const result = userReducer(state, action);
+      expect(result.loggedUser).toBe('test user');
+      expect(result.token).toBe('token');
+    });
+    test('Then the new state will be returned ', () => {
+      const action = {
+        type: 'login/fulfilled',
+        payload: { user: 'test user', token: 'token' },
+      };
+      const state: UserState = {} as UserState;
+      const result = userReducer(state, action);
+      expect(result.loggedUser).toBe('test user');
+      expect(result.token).toBe('token');
     });
 
     test('should update the state with the logged in user and token when loginThunk is fulfilled', () => {

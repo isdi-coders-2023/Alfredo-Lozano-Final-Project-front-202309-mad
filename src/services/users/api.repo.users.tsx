@@ -24,6 +24,20 @@ export class ApiRepoUsers {
     return response.json();
   }
 
+  async loginWithToken(token: string): Promise<LoginResponse> {
+    console.log(token);
+    const url = this.apiUrl + 'login';
+    const response = await fetch(url, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok)
+      throw new Error(response.status + ' ' + response.statusText);
+    return response.json();
+  }
+
   async registerUser(newUser: Partial<User>): Promise<User> {
     const url = this.apiUrl + 'register';
     const response = await fetch(url, {

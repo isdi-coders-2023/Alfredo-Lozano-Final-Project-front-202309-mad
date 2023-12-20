@@ -14,6 +14,7 @@ const mockRegister: Partial<User> = {
   userName: 'johndoe',
 };
 const mockUserID = '123';
+const mockToken = 'mocktoken';
 localStorage.setItem('user', JSON.stringify({ token: mockUserID }));
 
 const repo = new ApiRepoUsers();
@@ -34,6 +35,14 @@ describe('Given User ApiRepo class', () => {
       expect(jsonMock).toHaveBeenCalled();
       expect(result).toStrictEqual(expected);
     });
+
+    test('Then method login should be used', async () => {
+      const expected: User[] = [];
+      const result = await repo.loginWithToken(mockToken);
+      expect(jsonMock).toHaveBeenCalled();
+      expect(result).toStrictEqual(expected);
+    });
+
     test('then method registerUser should be used', async () => {
       const result = await repo.registerUser(mockRegister);
       expect(result).toEqual([]);

@@ -20,6 +20,19 @@ export const loginThunk = createAsyncThunk<
   return result;
 });
 
+export const loginTokenThunk = createAsyncThunk<
+  LoginResponse,
+  {
+    token: string;
+    repo: ApiRepoUsers;
+    userStore: Storage<{ token: string }>;
+  }
+>('loginWithToken', async ({ token, repo, userStore }) => {
+  const loginResponse = await repo.loginWithToken(token);
+  userStore.set({ token: loginResponse.token });
+  return loginResponse;
+});
+
 export const registerThunk = createAsyncThunk<
   User,
   {
